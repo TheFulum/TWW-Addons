@@ -1,0 +1,15 @@
+## Interface: 110105, 110107
+## Title: |cff00ff00Auto Mark|r
+## Notes: Auto Mark
+## Version: 1.2
+## Author: Galehad
+## SavedVariables: AutoMark_DB, AutoMark_Mobs, AutoMark_Instances
+## IconTexture: Interface\TargetingFrame\UI-RaidTargetingIcon_8
+## AddonCompartmentFunc: AutoMark_OnAddonCompartmentClick
+## AddonCompartmentFuncOnEnter: AutoMark_OnAddonCompartmentEnter
+## AddonCompartmentFuncOnLeave: AutoMark_OnAddonCompartmentLeave
+embeds.xml
+AutoMarkIcon.lua
+AutoMarkData.lua
+AutoMarkConfig.lua
+AutoMark.lua
