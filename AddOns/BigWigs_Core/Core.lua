@@ -14,6 +14,9 @@ do
 	core.name = "BigWigs"
 end
 
+local adb = LibStub("AceDB-3.0")
+local lds = LibStub("LibDualSpec-1.0", true)
+
 local CL = BigWigsAPI:GetLocale("BigWigs: Common")
 local loader = BigWigsLoader
 core.SendMessage = loader.SendMessage
@@ -61,16 +64,11 @@ do
 		if type(event) ~= "string" then error((noEvent):format(self.moduleName)) end
 		if (not func and not self[event]) or (type(func) == "string" and not self[func]) then error((noFunc):format(self.moduleName or "?", event, func or event)) end
 		if not eventMap[event] then eventMap[event] = {} end
-
-		if eventMap[event][self] then -- Event is already registered to this specific module, just change the assigned function
-			eventMap[event][self] = func or event
-		else -- Event has not been previously registered to this specific module
-			if event == currentEvent then
-				core:Error(curEvent:format(self.moduleName or "?", event, func or event))
-			end
-			eventMap[event][self] = func or event
-			bwUtilityFrame:RegisterEvent(event)
+		if event == currentEvent then
+			core:Error(curEvent:format(self.moduleName or "?", event, func or event))
 		end
+		eventMap[event][self] = func or event
+		bwUtilityFrame:RegisterEvent(event)
 	end
 	function core:UnregisterEvent(event)
 		if type(event) ~= "string" then error((noEvent):format(self.moduleName)) end
@@ -241,9 +239,34 @@ do
 		end
 	end
 
+	local function profileUpdate()
+		core:SendMessage("BigWigs_ProfileUpdate")
+	end
+
 	local addonName = ...
 	function mod:ADDON_LOADED(_, name)
 		if name ~= addonName then return end
+
+		local defaults = {
+			profile = {
+				showZoneMessages = true,
+				fakeDBMVersion = false,
+				englishSayMessages = false,
+			},
+			global = {
+				optionShiftIndexes = {},
+				watchedMovies = {},
+			},
+		}
+		local db = adb:New("BigWigs3DB", defaults, true)
+		if lds then
+			lds:EnhanceDatabase(db, "BigWigs3DB")
+		end
+
+		db.RegisterCallback(mod, "OnProfileChanged", profileUpdate)
+		db.RegisterCallback(mod, "OnProfileCopied", profileUpdate)
+		db.RegisterCallback(mod, "OnProfileReset", profileUpdate)
+		core.db = db
 
 		mod.ADDON_LOADED = InitializeModules
 		InitializeModules()
@@ -268,16 +291,12 @@ do
 			coreEnabled = false
 
 			loader.UnregisterMessage(mod, "BigWigs_BossComm")
-			loader.UnregisterMessage(mod, "BigWigs_UNIT_TARGET")
+			core.UnregisterEvent(mod, "ZONE_CHANGED_NEW_AREA")
+			core.UnregisterEvent(mod, "PLAYER_LEAVING_WORLD")
 			core.UnregisterEvent(mod, "ENCOUNTER_START")
 			core.UnregisterEvent(mod, "RAID_BOSS_WHISPER")
 			core.UnregisterEvent(mod, "UPDATE_MOUSEOVER_UNIT")
-			core.UnregisterEvent(mod, "PLAYER_LEAVING_WORLD")
-			core.UnregisterEvent(mod, "ZONE_CHANGED_NEW_AREA")
-			if C_EventUtils.IsEventValid("PLAYER_MAP_CHANGED") then
-				core.UnregisterEvent(mod, "PLAYER_MAP_CHANGED")
-			end
-			core.UnregisterEvent(mod, "PLAYER_LOGIN")
+			loader.UnregisterMessage(mod, "BigWigs_UNIT_TARGET")
 
 			core:SendMessage("BigWigs_StopConfigureMode")
 			if BigWigsOptions then
@@ -309,27 +328,27 @@ do
 		elseif zoneList[newId] then
 			-- Joining a delve but we were already enabled from something
 			DisableCore()
-			core:Enable()
+			--core:Enable() -- We rely on the 0 second delay from the loader to re-enable the core
 		end
 	end
 	function core:Enable()
 		if not coreEnabled then
 			coreEnabled = true
 
-			-- Always make sure to unregister everything that's added here in DisableCore()
 			loader.RegisterMessage(mod, "BigWigs_BossComm", bossComm)
-			loader.RegisterMessage(mod, "BigWigs_UNIT_TARGET", UnitTargetChanged)
 			core.RegisterEvent(mod, "ENCOUNTER_START")
 			core.RegisterEvent(mod, "RAID_BOSS_WHISPER")
 			core.RegisterEvent(mod, "UPDATE_MOUSEOVER_UNIT", UpdateMouseoverUnit)
+			loader.RegisterMessage(mod, "BigWigs_UNIT_TARGET", UnitTargetChanged)
 			core.RegisterEvent(mod, "PLAYER_LEAVING_WORLD", DisableCore) -- Simple disable when leaving instances
+			if C_EventUtils.IsEventValid("PLAYER_MAP_CHANGED") then
+				core.RegisterEvent(mod, "PLAYER_MAP_CHANGED", CheckIfLeavingDelve)
+			end
 			local _, instanceType = GetInstanceInfo()
 			if instanceType == "none" then -- We don't want to be disabling in instances
 				core.RegisterEvent(mod, "ZONE_CHANGED_NEW_AREA", zoneChanged) -- Special checks for disabling after world bosses
 			end
-			if C_EventUtils.IsEventValid("PLAYER_MAP_CHANGED") then
-				core.RegisterEvent(mod, "PLAYER_MAP_CHANGED", CheckIfLeavingDelve)
-			end
+
 
 			if IsLoggedIn() then
 				EnablePlugins()
@@ -380,9 +399,9 @@ do
 	local errorAlreadyRegistered = "%q already exists as a module in BigWigs, but something is trying to register it again."
 	local errorJournalIdInvalid = "%q is using the invalid journal id of %q."
 	local bossMeta = { __index = bossPrototype, __metatable = false }
-	local EJ_GetEncounterInfo = (loader.isCata or loader.isMists) and function(key)
+	local EJ_GetEncounterInfo = loader.isCata and function(key)
 		return EJ_GetEncounterInfo(key) or BigWigsAPI:GetLocale("BigWigs: Encounters")[key]
-	end or loader.isRetail and EJ_GetEncounterInfo or function(key)
+	end or (loader.isRetail or loader.isMists) and EJ_GetEncounterInfo or function(key)
 		return BigWigsAPI:GetLocale("BigWigs: Encounters")[key]
 	end
 	function core:NewBoss(moduleName, zoneId, journalId)
@@ -496,9 +515,9 @@ function core:GetPlugin(moduleName, silent)
 end
 
 do
-	local C_EncounterJournal_GetSectionInfo = (loader.isCata or loader.isMists) and function(key)
+	local C_EncounterJournal_GetSectionInfo = loader.isCata and function(key)
 		return C_EncounterJournal.GetSectionInfo(key) or BigWigsAPI:GetLocale("BigWigs: Encounter Info")[key]
-	end or loader.isRetail and C_EncounterJournal.GetSectionInfo or function(key)
+	end or (loader.isRetail or loader.isMists) and C_EncounterJournal.GetSectionInfo or function(key)
 		return BigWigsAPI:GetLocale("BigWigs: Encounter Info")[key]
 	end
 	local C = core.C -- Set from Constants.lua
@@ -590,7 +609,7 @@ do
 					end
 				end
 			end
-			module.db = loader.db:RegisterNamespace(module.name, { profile = module.toggleDefaults })
+			module.db = core.db:RegisterNamespace(module.name, { profile = module.toggleDefaults })
 			local db = module.db.profile
 			for k, v in next, db do -- Option validation
 				local defaultType = type(module.toggleDefaults[k])
@@ -629,7 +648,7 @@ do
 
 	function core:RegisterPlugin(module)
 		if type(module.defaultDB) == "table" then
-			module.db = loader.db:RegisterNamespace(module.name, { profile = module.defaultDB } )
+			module.db = core.db:RegisterNamespace(module.name, { profile = module.defaultDB } )
 		end
 
 		-- Call the module's OnRegister (which is our OnInitialize replacement)

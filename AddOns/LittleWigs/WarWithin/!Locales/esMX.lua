@@ -1,6 +1,7 @@
 -- Ara-Kara, City of Echoes
 
 local L = BigWigs:NewBossLocale("Ara-Kara, City of Echoes Trash", "esMX")
+if not L then return end
 if L then
 	L.discordant_attendant = "Auxiliar discordante"
 	L.engorged_crawler = "Camorrista atiborrado"
@@ -117,27 +118,6 @@ if L then
 	--L.wriggling_darkspawn = "Wriggling Darkspawn"
 end
 
--- Eco-Dome Al'dani
-
-L = BigWigs:NewBossLocale("Eco-Dome Al'dani Trash", "esMX")
-if L then
-	--L.terrified_broker = "Terrified Broker"
-	--L.arcane_siphon = "Arcane Siphon"
-	--L.overgorged_mite = "Overgorged Mite"
-	--L.voracious_gorger = "Voracious Gorger"
-	--L.ravenous_destroyer = "Ravenous Destroyer"
-	--L.overcharged_sentinel = "Overcharged Sentinel"
-	--L.wastelander_farstalker = "Wastelander Farstalker"
-	--L.tamed_ruinstalker = "Tamed Ruinstalker"
-	--L.wastelander_ritualist = "Wastelander Ritualist"
-	--L.wastelander_pactspeaker = "Wastelander Pactspeaker"
-	--L.karesh_elemental = "K'aresh Elemental"
-	--L.burrowing_creeper = "Burrowing Creeper"
-	--L.wastes_creeper = "Wastes Creeper"
-
-	--L.taahbat_and_awazj_warmup_trigger = "I have no time for this. Taah'bat! Be certain they follow no further."
-end
-
 -- Operation: Floodgate
 
 L = BigWigs:NewBossLocale("Operation: Floodgate Trash", "esMX")
@@ -162,7 +142,7 @@ if L then
 	--L.venture_co_electrician = "Venture Co. Electrician"
 	--L.darkfuse_jumpstarter = "Darkfuse Jumpstarter"
 
-	L.geezle_gigazap_warmup = "Este proyecto no podrá continuar sin el científico a cargo. ¡Congelen a ese cerebrote!"
+	--L.geezle_gigazap_warmup = "This project can't continue without the scientist behind it all. Put that big brain on ice!"
 end
 
 -- Priory of the Sacred Flame
@@ -218,7 +198,6 @@ end
 L = BigWigs:NewBossLocale("The Dawnbreaker Trash", "esMX")
 if L then
 	L.arathi_lamplighter = "Prendelámparas arathi"
-	L.nightfall_curseblade = "Armamaldita del ocaso"
 	L.nightfall_shadowmage = "Mago oscuro del Ocaso"
 	L.nightfall_ritualist = "Ritualista del ocaso"
 	L.nightfall_commander = "Comandante del Ocaso"

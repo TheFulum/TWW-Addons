@@ -13,7 +13,6 @@ mod:SetRespawnTime(30)
 --
 
 local stoneCallCount = 1
-local nextBloodTorrent = 0
 
 --------------------------------------------------------------------------------
 -- Initialization
@@ -22,7 +21,7 @@ local nextBloodTorrent = 0
 function mod:GetOptions()
 	return {
 		319733, -- Stone Call
-		328206, -- Flesh to Stone
+		328206, -- Curse of Stone
 		{319941, "SAY", "SAY_COUNTDOWN"}, -- Stone Shattering Leap
 		326389, -- Blood Torrent
 	}
@@ -30,7 +29,7 @@ end
 
 function mod:OnBossEnable()
 	self:Log("SPELL_CAST_START", "StoneCall", 319733)
-	self:Log("SPELL_CAST_START", "FleshToStone", 328206)
+	self:Log("SPELL_CAST_SUCCESS", "CurseOfStone", 328206)
 	self:Log("SPELL_CAST_START", "StoneShatteringLeap", 319941)
 	self:Log("SPELL_CAST_START", "BloodTorrent", 326389)
 	self:Log("SPELL_AURA_APPLIED", "BloodTorrentDamage", 319703)
@@ -40,10 +39,9 @@ end
 
 function mod:OnEngage()
 	stoneCallCount = 1
-	nextBloodTorrent = GetTime() + 4.6
-	self:CDBar(326389, 4.6) -- Blood Torrent
-	self:CDBar(319733, 9.6) -- Stone Call
-	self:CDBar(328206, 20.4) -- Flesh to Stone
+	self:CDBar(326389, 7.0) -- Blood Torrent
+	self:CDBar(319733, 11.9) -- Stone Call
+	self:CDBar(328206, 21.9) -- Curse of Stone
 	self:CDBar(319941, 23.4) -- Stone Shattering Leap
 end
 
@@ -53,27 +51,19 @@ end
 
 function mod:StoneCall(args)
 	self:Message(args.spellId, "cyan")
+	self:PlaySound(args.spellId, "long")
 	stoneCallCount = stoneCallCount + 1
 	if stoneCallCount % 2 == 0 then
-		self:CDBar(args.spellId, 48.5)
+		self:CDBar(args.spellId, 48.6)
 	else
 		self:CDBar(args.spellId, 42.5)
 	end
-	self:PlaySound(args.spellId, "long")
 end
 
-function mod:FleshToStone(args)
-	local t = GetTime()
+function mod:CurseOfStone(args)
 	self:Message(args.spellId, "yellow")
-	self:CDBar(args.spellId, 29.1)
-	-- 3s to Stone Shattering Leap
-	self:CDBar(319941, {3.0, 29.1}) -- Stone Shattering Leap
-	-- minimum 9.7s to Blood Torrent
-	if nextBloodTorrent - t < 9.7 then
-		nextBloodTorrent = t + 9.7
-		self:CDBar(326389, {9.7, 17.0}) -- Blood Torrent
-	end
 	self:PlaySound(args.spellId, "info")
+	self:CDBar(args.spellId, 29.1)
 end
 
 do
@@ -96,18 +86,20 @@ end
 
 function mod:BloodTorrent(args)
 	self:Message(args.spellId, "orange")
-	nextBloodTorrent = GetTime() + 17.0
-	self:CDBar(args.spellId, 17.0)
 	self:PlaySound(args.spellId, "alert")
+	self:CDBar(args.spellId, 17.0)
 end
 
 do
 	local prev = 0
 	function mod:BloodTorrentDamage(args)
-		if self:Me(args.destGUID) and args.time - prev > 2 then
-			prev = args.time
-			self:PersonalMessage(326389, "underyou")
-			self:PlaySound(326389, "underyou")
+		if self:Me(args.destGUID) then
+			local t = args.time
+			if t - prev > 2 then
+				prev = t
+				self:PersonalMessage(326389, "underyou")
+				self:PlaySound(326389, "underyou", nil, args.destName)
+			end
 		end
 	end
 end

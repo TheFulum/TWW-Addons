@@ -1,6 +1,7 @@
 -- Ara-Kara, City of Echoes
 
 local L = BigWigs:NewBossLocale("Ara-Kara, City of Echoes Trash", "deDE")
+if not L then return end
 if L then
 	L.discordant_attendant = "Disharmonischer Bediensteter"
 	L.engorged_crawler = "Vollgefressener Krabbler"
@@ -117,27 +118,6 @@ if L then
 	L.wriggling_darkspawn = "Zuckende Dunkelbrut"
 end
 
--- Eco-Dome Al'dani
-
-L = BigWigs:NewBossLocale("Eco-Dome Al'dani Trash", "deDE")
-if L then
-	L.terrified_broker = "Verängstigter Mittler"
-	L.arcane_siphon = "Arkanentzug"
-	L.overgorged_mite = "Überfressene Milbe"
-	L.voracious_gorger = "Gieriger Fresser"
-	L.ravenous_destroyer = "Gefräßiger Zerstörer"
-	L.overcharged_sentinel = "Überladener Wächter"
-	L.wastelander_farstalker = "Weitenpirscherin der Ödnisbewohner"
-	L.tamed_ruinstalker = "Gezähmter Ruinenpirscher"
-	L.wastelander_ritualist = "Ritualist der Ödnisbewohner"
-	L.wastelander_pactspeaker = "Paktsprecherin der Ödnisbewohner"
-	L.karesh_elemental = "Elementar der K'aresh"
-	L.burrowing_creeper = "Grabender Kriecher"
-	L.wastes_creeper = "Ödniskriecher"
-
-	L.taahbat_and_awazj_warmup_trigger = "Ich habe keine Zeit dafür. Taah'bat! Sie dürfen uns nicht weiter folgen."
-end
-
 -- Operation: Floodgate
 
 L = BigWigs:NewBossLocale("Operation: Floodgate Trash", "deDE")
@@ -218,7 +198,6 @@ end
 L = BigWigs:NewBossLocale("The Dawnbreaker Trash", "deDE")
 if L then
 	L.arathi_lamplighter = "Lampenanzünder der Arathi"
-	L.nightfall_curseblade = "Fluchklinge von Nachtsturz"
 	L.nightfall_shadowmage = "Schattenmagier von Nachtsturz"
 	L.nightfall_ritualist = "Ritualist von Nachtsturz"
 	L.nightfall_commander = "Kommandant von Nachtsturz"

@@ -193,6 +193,8 @@ local function onDragStop(self)
 	db.posy = self:GetTop() * s
 	plugin:UpdateGUI() -- Update X/Y if GUI is open.
 end
+local function OnDragHandleMouseDown(self) self.frame:StartSizing("BOTTOMRIGHT") end
+local function OnDragHandleMouseUp(self) self.frame:StopMovingOrSizing() end
 local function onResize(self, width, height)
 	db.width = width
 	db.height = height
@@ -591,24 +593,21 @@ do
 		proxAnchor.text = text
 
 		local drag = CreateFrame("Frame", nil, proxAnchor)
+		drag.frame = proxAnchor
 		drag:SetWidth(16)
 		drag:SetHeight(16)
-		drag:SetPoint("BOTTOMRIGHT", -1, 1)
+		drag:SetPoint("BOTTOMRIGHT", proxAnchor, -1, 1)
 		drag:EnableMouse(true)
-		drag:SetScript("OnMouseDown", function(self) self:GetParent():StartSizing("BOTTOMRIGHT") GameTooltip:Hide() end)
-		drag:SetScript("OnMouseUp", function(self) self:GetParent():StopMovingOrSizing() end)
-		drag:SetScript("OnEnter", function(self)
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetText(L.dragToResize)
-			GameTooltip:Show()
-		end)
-		drag:SetScript("OnLeave", onControlLeave)
+		drag:SetScript("OnMouseDown", OnDragHandleMouseDown)
+		drag:SetScript("OnMouseUp", OnDragHandleMouseUp)
 		proxAnchor.drag = drag
 
 		local tex = drag:CreateTexture(nil, "OVERLAY")
 		tex:SetTexture("Interface\\AddOns\\BigWigs\\Media\\Icons\\draghandle")
-		tex:SetAllPoints(drag)
+		tex:SetWidth(16)
+		tex:SetHeight(16)
 		tex:SetBlendMode("ADD")
+		tex:SetPoint("CENTER", drag)
 
 		plugin:RestyleWindow()
 
@@ -976,7 +975,7 @@ end
 -- Slash command
 --
 
-local function slash(input)
+SlashCmdList.BigWigs_Proximity = function(input)
 	if not plugin:IsEnabled() then BigWigs:Enable() end
 	input = input:lower()
 	local range, reverse = input:match("^(%d+)%s*(%S*)$")
@@ -997,5 +996,5 @@ local function slash(input)
 	end
 end
 
-BigWigsAPI.RegisterSlashCommand("/proximity", slash)
-BigWigsAPI.RegisterSlashCommand("/range", slash)
+SLASH_BigWigs_Proximity1 = "/proximity"
+SLASH_BigWigs_Proximity2 = "/range"

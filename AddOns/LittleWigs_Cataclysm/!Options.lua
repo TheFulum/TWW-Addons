@@ -437,13 +437,10 @@ BigWigs:AddSounds("Baron Ashbury", {
 })
 
 BigWigs:AddColors("Baron Silverlaine", {
-	[23224] = "orange",
-	[93857] = {"cyan","yellow"},
+	[93857] = {"red","yellow"},
 })
 
 BigWigs:AddSounds("Baron Silverlaine", {
-	[23224] = "alert",
-	[93857] = "info",
 })
 
 BigWigs:AddColors("Commander Springvale", {

@@ -1,45 +1,28 @@
--- Archival Assault
-
-local L = BigWigs:NewBossLocale("Captain Nil'hitan", "frFR")
-if L then
-	L.captain_nilhitan = "Capitaine Nil'hitan"
-end
-
-L = BigWigs:NewBossLocale("Portalmaster Halsan", "frFR")
-if L then
-	L.portalmaster_halsan = "Maître des portails Halsan"
-end
-
-L = BigWigs:NewBossLocale("Voidrider Challnax", "frFR")
-if L then
-	L.voidripper = "Éventreur du Vide"
-	L.voidrider_challnax= "Chevaucheuse du Vide Challnax"
-end
-
 -- Demolition Dome
 
-L = BigWigs:NewBossLocale("The Underpin", "frFR")
+local L = BigWigs:NewBossLocale("The Underpin", "frFR")
+if not L then return end
 if L then
-	L.the_underpin = "Le Père Foreur (Tier 8)"
-	L.crony = "Crony"
+	--L.the_underpin = "The Underpin (Tier 8)"
+	--L.crony = "Crony"
 end
 
 L = BigWigs:NewBossLocale("The Underpin 2", "frFR")
 if L then
-	L.the_underpin = "Le Père Foreur (Tier 11)"
-	L.crony = "Crony"
+	--L.the_underpin = "The Underpin (Tier 11)"
+	--L.crony = "Crony"
 end
 
 -- Earthcrawl Mines
 
 L = BigWigs:NewBossLocale("Maklin Drillstab", "frFR")
 if L then
-	L.maklin_drillstab = "Maklin Vrillechoc"
+	--L.maklin_drillstab = "Maklin Drillstab"
 end
 
 L = BigWigs:NewBossLocale("The Biggest Bug", "frFR")
 if L then
-	L.the_biggest_bug = "Un très gros insecte"
+	--L.the_biggest_bug = "The Biggest Bug"
 end
 
 L = BigWigs:NewBossLocale("Web General Ab'enar", "frFR")
@@ -49,32 +32,27 @@ end
 
 -- Excavation Site 9
 
-L = BigWigs:NewBossLocale("Beste Glatisant", "frFR")
-if L then
-	L.beste_glatisant = "Beste Glatissante"
-end
-
 L = BigWigs:NewBossLocale("Craggle Fritzbrains", "frFR")
 if L then
-	L.craggle_fritzbrains = "Pierre Ecervelle"
+	--L.craggle_fritzbrains = "Craggle Fritzbrains"
 end
 
 L = BigWigs:NewBossLocale("Harbinger Ul'thul", "frFR")
 if L then
-	L.harbinger_ulthul = "Messager Ul'thul"
+	--L.harbinger_ulthul = "Harbinger Ul'thul"
 end
 
 L = BigWigs:NewBossLocale("Xel'anegh The Many", "frFR")
 if L then
-	L.xelanegh_the_many = "Xel'anegh la Multiple"
+	--L.xelanegh_the_many = "Xel'anegh The Many"
 end
 
 -- Fungal Folly
 
 L = BigWigs:NewBossLocale("Maulspike", "frFR")
 if L then
-	L.maulspike = "Massepique"
-	L.darkfuse_cackler = "Rieuse imprégnée de ténèbres"
+	--L.maulspike = "Maulspike"
+	--L.darkfuse_cackler = "Darkfuse Cackler"
 end
 
 L = BigWigs:NewBossLocale("Spinshroom", "frFR")
@@ -83,11 +61,6 @@ if L then
 end
 
 -- Kriegval's Rest
-
-L = BigWigs:NewBossLocale("Faceless One Kriegval's Rest", "frFR")
-if L then
-	L.faceless_one = "Sans-visage"
-end
 
 L = BigWigs:NewBossLocale("Tomb-Raider Drywhisker", "frFR")
 if L then
@@ -122,27 +95,27 @@ end
 
 L = BigWigs:NewBossLocale("Cult Leaders", "frFR")
 if L then
-	L.cult_leaders = "Chefs de culte"
-	L.inquisitor_speaker = "Mandataire inquisiteur"
-	L.shadeguard_speaker = "Mandataire gardien des ombres"
+	--L.cult_leaders = "Cult Leaders"
+	--L.inquisitor_speaker = "Inquisitor Speaker"
+	--L.shadeguard_speaker = "Shadeguard Speaker"
 end
 
 -- Sidestreet Sluice
 
 L = BigWigs:NewBossLocale("Geargrave", "frFR")
 if L then
-	L.geargrave = "Tombrouage"
+	--L.geargrave = "Geargrave"
 end
 
 L = BigWigs:NewBossLocale("Gold Elemental", "frFR")
 if L then
-	L.gold_elemental = "Elémentaire d'or"
-	L.gold_shaman = "Chaman doré"
+	--L.gold_elemental = "Gold Elemental"
+	--L.gold_shaman = "Gold Shaman"
 end
 
 L = BigWigs:NewBossLocale("Vindle Snapcrank", "frFR")
 if L then
-	L.vindle_snapcrank = "Vindle Maniclaque"
+	--L.vindle_snapcrank = "Vindle Snapcrank"
 end
 
 -- Skittering Breach
@@ -221,9 +194,9 @@ end
 
 L = BigWigs:NewBossLocale("Torque Clankfire and Sprok", "frFR")
 if L then
-	L.bossName = "Dyna Cliquefeu et Sprok"
-	L.torque_clankfire = "Dyna Cliquefeu"
-	L.sprok = "Sprok"
+	--L.bossName = "Torque Clankfire and Sprok"
+	--L.torque_clankfire = "Torque Clankfire"
+	--L.sprok = "Sprok"
 end
 
 -- The Waterworks
@@ -236,13 +209,6 @@ end
 L = BigWigs:NewBossLocale("Waxface", "frFR")
 if L then
 	L.waxface = "Museau-cireux"
-end
-
--- Voidrazor Sanctuary
-
-L = BigWigs:NewBossLocale("Nexus-Princess Ky'veza (Tier 11)", "frFR")
-if L then
-	L.nexus_princess_kyveza = "Princesse-nexus Ky'veza"
 end
 
 -- Zekvir's Lair
@@ -261,19 +227,6 @@ end
 
 -- Trash
 
-L = BigWigs:NewBossLocale("Ethereal Trash", "frFR")
-if L then
-	L.ethereal_trash = "Trash Éthérien"
-
-	L.shadeye_observer = "Observateur ombroeil"
-	L.shadowguard_phasecutter = "Tranche-phase ombre-garde"
-	L.shadowguard_arcanotech = "Arcanotech ombre-garde"
-	L.shadowguard_soulbreaker = "Brise-âme ombre-garde"
-	L.shadowguard_steelsoul = "Ame-d'acier ombre-garde"
-	L.siphoned_drake = "Drake siphonné"
-	L.steelsoul_arcanoward = "Arcanogardien âme d'acier"
-end
-
 L = BigWigs:NewBossLocale("Fungarian Delve Trash", "frFR")
 if L then
 	L.fungarian_trash = "Trash fongicien"
@@ -290,17 +243,16 @@ end
 
 L = BigWigs:NewBossLocale("Goblin Delve Trash", "frFR")
 if L then
-	L.goblin_trash = "Trash Gobelins"
+	--L.goblin_trash = "Goblin Trash"
 
-	L.bopper_bot = "Robot virevoltant"
-	L.aerial_support_bot = "Robot de soutien aérien"
-	L.masked_freelancer = "Indépendant masqué"
-	L.underpaid_brute = "Brute sous-payée"
-	L.drill_sergeant = "Sergent foreur"
+	--L.bopper_bot = "Bopper Bot"
+	--L.aerial_support_bot = "Aerial Support Bot"
+	--L.masked_freelancer = "Masked Freelancer"
+	--L.underpaid_brute = "Underpaid Brute"
+	--L.drill_sergeant = "Drill Sergeant"
 	L.punchy_thug = "Criminel percutant"
 	L.flinging_flicker = "Ombre frappante"
 	L.bomb_bot = "Robo-bombe"
-	L.rad_rat = "Radio Rat"
 end
 
 L = BigWigs:NewBossLocale("Kobold Delve Trash", "frFR")
@@ -323,24 +275,6 @@ if L then
 	L.crazed_predator = "Prédateur fou"
 	L.deepwater_makura = "Makrura eaux-profondes"
 	L.kobyss_trickster = "Entourloupeur kobyss"
-end
-
-L = BigWigs:NewBossLocale("Ky'veza Rares", "frFR")
-if L then
-	L.rares = "Rares de Ky'veza"
-
-	L.treasure_wraith = "Âme en peine de trésor"
-	L.invasive_phasecrawler = "Rampeur phasique envahissant"
-	L.drude = "D'rude"
-	L.great_devourer = "Grand dévoreur"
-	L.pactsworn_fraycaller = "Mande-rixe pactisateur"
-	L.pactsworn_dustblade = "Lame de poussière pactisateur"
-	L.pactsworn_sandreaver = "Saccageur des sables pactisateur"
-	L.pactsworn_arcanist = "Arcaniste pactisateur"
-	L.pactsworn_wildcaller = "Mande-nature pactisateur"
-	L.nexus_princess_kyveza = "Princesse-nexus Ky'veza (Apparition aléatoire)"
-	L.zekvir = "Zekvir"
-	L.the_underpin = "Le Père Foreur"
 end
 
 L = BigWigs:NewBossLocale("Nerubian Delve Trash", "frFR")
@@ -369,12 +303,12 @@ end
 
 L = BigWigs:NewBossLocale("Old God Delve Trash", "frFR")
 if L then
-	L.old_god_trash = "Trash Dieux Très Anciens"
+	--L.old_god_trash = "Old God Trash"
 
-	L.dark_walker = "Marcheur sombre"
-	L.hideous_amalgamation = "Amalgame hideux"
-	L.coagulated_mass = "Masse coagulée"
-	L.silent_slitherer = "Siffleur silencieux"
+	--L.dark_walker = "Dark Walker"
+	--L.hideous_amalgamation = "Hideous Amalgamation"
+	--L.coagulated_mass = "Coagulated Mass"
+	--L.silent_slitherer = "Silent Slitherer"
 	L.amalgamized_mass = "Masse amalgamée"
 end
 
@@ -384,4 +318,31 @@ if L then
 	L.deepwalker_guardian = "Gardien des Marche-Fonds"
 	L.crazed_abomination = "Abomination affolée"
 	L.web_marauder = "Maraudeur des toiles"
+end
+
+L = BigWigs:NewBossLocale("Underpin Rares", "frFR")
+if L then
+	--L.rares = "Underpin Rares"
+
+	L.treasure_wraith = "Âme en peine de trésor"
+	--L.treasure_crab = "Treasure Crab"
+	--L.hovering_menace = "Hovering Menace"
+	--L.malfunctioning_pummeler = "Malfunctioning Pummeler"
+	--L.underpins_adoring_fan = "Underpin's Adoring Fan"
+	--L.underpins_well_connected_friend = "Underpin's Well-Connected Friend"
+	--L.underpins_explosive_ally = "Underpin's Explosive Ally"
+	--L.underpins_bodyguards_intern = "Underpin's Bodyguard's Intern"
+	--L.aggressively_lost_hobgoblin = "Aggressively Lost Hobgoblin"
+	--L.the_underpin = "The Underpin (Random Spawn)"
+
+	--L.underpin_retreat_trigger = "People always messin' around on my perfectly legal, deeded land!"
+end
+
+L = BigWigs:NewBossLocale("Overcharged Trash", "frFR")
+if L then
+	--L.overcharged_trash = "Overcharged Trash"
+
+	--L.awakened_defensive_construct = "Awakened Defensive Construct"
+	--L.awakened_defense_matrix = "Awakened Defense Matrix"
+	--L.overcharged_bot = "Overcharged Bot"
 end

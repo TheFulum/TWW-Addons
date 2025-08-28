@@ -70,9 +70,9 @@ end
 function mod:OnEngage()
 	addDeaths = 0
 	corruptedVortexCount = 0
-	if self:Retail() and self:Mythic() then -- Dragonflight+
-		self:CDBar(397797, 8.5) -- Corrupted Vortex
+	if self:Mythic() then
 		self:CDBar(397785, 21) -- Wash Away
+		self:CDBar(397797, 8.5) -- Corrupted Vortex
 	end
 end
 

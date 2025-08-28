@@ -172,7 +172,7 @@ end
 
 local SendAddonMessage = BigWigsLoader.SendAddonMessage
 local dbmPrefix = BigWigsLoader.dbmPrefix
-BigWigsAPI.RegisterSlashCommand("/break", function(input)
+SlashCmdList.BIGWIGSBREAK = function(input)
 	if not plugin:IsEnabled() then BigWigs:Enable() end
 	if IsEncounterInProgress() then BigWigs:Print(L.encounterRestricted) return end -- Doesn't make sense to allow this in combat
 	if not IsInGroup() or UnitIsGroupLeader("player") or UnitIsGroupAssistant("player") then -- Solo or leader/assist
@@ -197,4 +197,5 @@ BigWigsAPI.RegisterSlashCommand("/break", function(input)
 	else
 		BigWigs:Print(L.requiresLeadOrAssist)
 	end
-end)
+end
+SLASH_BIGWIGSBREAK1 = "/break"

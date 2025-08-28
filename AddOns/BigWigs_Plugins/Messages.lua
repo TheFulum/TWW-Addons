@@ -848,19 +848,13 @@ do
 
 		if not db.useicons then icon = nil end
 
-		if emphasized then
-			if db.emphDisabled and module and module.IsEnableMob then
-				return
-			end
+		if emphasized and not db.emphDisabled then
 			if db.emphUppercase then
 				text = upper(text)
 				text = gsub(text, "(:%d+|)T", "%1t") -- Fix texture paths that need to end in lowercase |t
 			end
 			self:EmphasizedPrint(nil, text, r, g, b, nil, nil, nil, nil, nil, nil, customDisplayTime)
-		else
-			if db.disabled and module and module.IsEnableMob then
-				return
-			end
+		elseif not db.disabled then
 			self:Print(nil, text, r, g, b, nil, nil, nil, nil, nil, icon, customDisplayTime)
 		end
 		if db.chat then

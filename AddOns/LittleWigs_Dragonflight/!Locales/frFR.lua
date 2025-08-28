@@ -1,6 +1,7 @@
 -- Algeth'ar Academy
 
 local L = BigWigs:NewBossLocale("Algeth'ar Academy Trash", "frFR")
+if not L then return end
 if L then
 	--L.custom_on_recruiter_autotalk_desc = "Instantly pledge to the Dragonflight Recruiters for a buff."
 	L.critical_strike = "+5% Coup critique"
@@ -31,8 +32,8 @@ end
 L = BigWigs:NewBossLocale("Brackenhide Hollow Trash", "frFR")
 if L then
 	--L.custom_on_cauldron_autotalk_desc = "[Alchemy] Instantly detoxify Decaying Cauldrons for a disease dispel buff."
-	L.captive_tuskarr_freed = "Captif Tuskarr libéré"
-	L.captive_tuskarr_freed_desc = "Affiche une alerte lorsqu'un Captif Tuskarr est libéré."
+	--L.captive_tuskarr_freed = "Captive Tuskarr Freed"
+	--L.captive_tuskarr_freed_desc = "Show an alert when a Captive Tuskarr has been freed."
 
 	L.decaying_cauldron = "Chaudron de putréfaction"
 	L.captive_tuskarr = "Rohart captif"
@@ -95,10 +96,10 @@ if L then
 	L.horde_raider_alliance_knight = "Chevaucheur de la Horde / Chevalier de l'Alliance"
 	L.infinite_timebender = "Courbe-temps de l'Infini"
 
-	L.custom_on_rift_autotalk_desc = "Canalise automatiquement pour ouvrir la faille temporelle."
-	L.rift_opened = "Faille temporelle ouverte"
+	--L.custom_on_rift_autotalk_desc = "Instantly start channeling to open the Temporal Rift."
+	--L.rift_opened = "Temporal Rift Opened"
 	L.rift_stability = "Stabilité de la faille"
-	L.rift_stability_desc = "Affiche une alerte lorsque la faille temporelle a été ouverte."
+	--L.rift_stability_desc = "Show an alert when the Temporal Rift has been opened."
 
 	--L.manifested_timeways_warmup_trigger = "Even the Aspect of Time cannot be allowed to disrupt the timeways!"
 end
@@ -107,7 +108,7 @@ end
 
 L = BigWigs:NewBossLocale("Halls of Infusion Trash", "frFR")
 if L then
-	L.custom_on_autotalk_desc = "Choisit automatiquement les options de dialogue pour avoir les améliorations de métiers."
+	--L.custom_on_autotalk_desc = "Instantly selects the gossip options to get profession buffs."
 
 	L.primalist_ravager = "Ravageuse primaliste"
 	L.primalist_geomancer = "Géomancien primaliste"
@@ -132,7 +133,7 @@ end
 
 L = BigWigs:NewBossLocale("Neltharus Trash", "frFR")
 if L then
-	L.custom_on_autotalk_desc = "Choisit automatiquement les options de dialogue pour avoir les améliorations de métiers."
+	--L.custom_on_autotalk_desc = "Instantly selects the gossip options to get profession buffs."
 
 	L.burning_chain = "Chaîne ardente"
 	L.qalashi_warden = "Gardien qalashi"
@@ -159,8 +160,8 @@ end
 
 L = BigWigs:NewBossLocale("Warlord Sargha", "frFR")
 if L then
-	L.magical_implements_desc = "Les piles de trésor environnantes contiennent des objets magiques aidant à épuiser le bouclier de lave."
-	L.magma_shield = "Bouclier de lave - Récupérez des objets des piles d'or"
+	--L.magical_implements_desc = "The surrounding treasure piles contain magic items that can help to deplete Magma Shield."
+	--L.magma_shield = "Magma Shield - Get items from gold piles"
 end
 
 -- Ruby Life Pools
@@ -193,7 +194,7 @@ end
 L = BigWigs:NewBossLocale("The Azure Vault Trash", "frFR")
 if L then
 	L.book_of_translocation = "Livre de transposition"
-	L.custom_on_book_autotalk_desc = "Procède automatiquement à la prochaine zone lorsque vous parlez aux livres de transposition."
+	--L.custom_on_book_autotalk_desc = "Instantly proceed to the next area when talking to Books of Translocation."
 
 	L.shrieking_whelp = "Dragonnet hurlant"
 	L.conjured_lasher = "Flagellant invoqué"
@@ -235,13 +236,13 @@ end
 
 L = BigWigs:NewBossLocale("Granyth", "frFR")
 if L then
-	L.lance_ready = "Lance prête"
+	--L.lance_ready = "Lance Ready"
 end
 
 L = BigWigs:NewBossLocale("The Raging Tempest", "frFR")
 if L then
-	L.on_you = "Sur vous"
-	L.on_boss = "Sur le boss"
+	--L.on_you = "On you"
+	--L.on_boss = "On the boss"
 end
 
 -- Uldaman: Legacy of Tyr
@@ -261,5 +262,5 @@ if L then
 	L.earthen_guardian = "Garde-terre"
 	L.infinite_agent = "Agent infini"
 
-	L.door_open_desc = "Affiche une barre lorsque les Nains perdus ouvrent la porte après Bromach."
+	--L.door_open_desc = "Show a bar indicating when The Lost Dwarves will open the door after Bromach."
 end

@@ -1,6 +1,7 @@
 -- Atal'Dazar
 
 local L = BigWigs:NewBossLocale("Atal'Dazar Trash", "deDE")
+if not L then return end
 if L then
 	L.skyscreamer = "Fressender Himmelskreischer"
 	L.tlonja = "T'lonja"
@@ -75,10 +76,10 @@ if L then
 	L.madnesses = "Wahnsinn"
 	L.potions = "Tränke"
 	L.buffs = "Buffs"
-	L.slowed = "Verlangsamt"
-	L.sluggish_potion_effect = "Heilt alle 5 Sek. 2%"
-	L.sickening_potion_effect = "5% weniger erlittener Schaden"
-	L.spicy_potion_effect = "Speit Feuer"
+	--L.slowed = "Slowed"
+	--L.sluggish_potion_effect = "Heal 2% every 5 sec"
+	--L.sickening_potion_effect = "5% damage reduction"
+	--L.spicy_potion_effect = "Breathe fire"
 
 	L.voidbound_shaman = "Leerengebundener Schamane"
 	L.endless_hunger_totem = "Totem des endlosen Hungers"
@@ -146,10 +147,6 @@ if L then
 	L.madnesses = "Wahnsinn"
 	L.potions = "Tränke"
 	L.buffs = "Buffs"
-	L.slowed = "Verlangsamt"
-	L.sluggish_potion_effect = "Heilt alle 5 Sek. 2%"
-	L.sickening_potion_effect = "5% weniger erlittener Schaden"
-	L.spicy_potion_effect = "Speit Feuer"
 
 	L.crawling_corruption = "Krabbelnde Verderbnis"
 	L.enthralled_footman = "Bezauberter Fußsoldat"

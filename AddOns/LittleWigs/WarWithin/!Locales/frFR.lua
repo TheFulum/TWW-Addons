@@ -1,6 +1,7 @@
 -- Ara-Kara, City of Echoes
 
 local L = BigWigs:NewBossLocale("Ara-Kara, City of Echoes Trash", "frFR")
+if not L then return end
 if L then
 	L.discordant_attendant = "Auxiliaire discordant"
 	L.engorged_crawler = "Rampante rassasiée"
@@ -117,27 +118,6 @@ if L then
 	L.wriggling_darkspawn = "Ténébreux frétillant"
 end
 
--- Eco-Dome Al'dani
-
-L = BigWigs:NewBossLocale("Eco-Dome Al'dani Trash", "frFR")
-if L then
-	L.terrified_broker = "Négociant terrifié"
-	L.arcane_siphon = "Siphon arcanique"
-	L.overgorged_mite = "Acarus surgavé"
-	L.voracious_gorger = "Goinfre vorace"
-	L.ravenous_destroyer = "Destructeur vorace"
-	L.overcharged_sentinel = "Sentinelle surchargée"
-	L.wastelander_farstalker = "Traque-loin paria du désert"
-	L.tamed_ruinstalker = "Traqueur des ruines apprivoisé"
-	L.wastelander_ritualist = "Ritualiste paria du désert"
-	L.wastelander_pactspeaker = "Pactisatrice paria du désert"
-	L.karesh_elemental = "Elémentaire k'areshi"
-	L.burrowing_creeper = "Rampant fouisseur"
-	L.wastes_creeper = "Rampant du désert"
-
-	L.taahbat_and_awazj_warmup_trigger = "Je n’ai pas le temps pour ça. Taah’bat ! Assurez-vous que plus personne ne nous suive."
-end
-
 -- Operation: Floodgate
 
 L = BigWigs:NewBossLocale("Operation: Floodgate Trash", "frFR")
@@ -162,7 +142,7 @@ if L then
 	L.venture_co_electrician = "Electricien de la KapitalRisk"
 	L.darkfuse_jumpstarter = "Démarreur imprégné de ténèbres"
 
-	L.geezle_gigazap_warmup = "Ce projet ne pourra pas continuer sans scientifique en chef. Mettez-le en vacances !"
+	--L.geezle_gigazap_warmup = "This project can't continue without the scientist behind it all. Put that big brain on ice!"
 end
 
 -- Priory of the Sacred Flame
@@ -218,7 +198,6 @@ end
 L = BigWigs:NewBossLocale("The Dawnbreaker Trash", "frFR")
 if L then
 	L.arathi_lamplighter = "Falotier(ère) arathi"
-	L.nightfall_curseblade = "Lame maudite tombe-nuit"
 	L.nightfall_shadowmage = "Ombremage tombe-nuit"
 	L.nightfall_ritualist = "Ritualiste tombe-nuit"
 	L.nightfall_commander = "Commandant tombe-nuit"

@@ -139,7 +139,6 @@ L.marker_npc_desc = "Marchia %s con %s, necessario ruolo assistente o capo." -- 
 L.marker_npc_aura_desc = "Marchia NPCs che hanno '%s' con %s, richiede promozione or capogruppo." -- Mark NPCs affected by 'SPELL_NAME' with SKULL_ICON
 L.disabled = "Disattivato"
 L.none = "Nessuno"
---L.markers = "Markers" -- Plural of marker
 
 -- Ability where two players have to move close to each other
 L.link = "Vincolo"
@@ -195,7 +194,6 @@ L.arcane = "Arcano"
 L.autotalk = "Interazione NPC Automatica"
 L.autotalk_boss_desc = "Automaticamente selezione l'opzione di dialogo NPC che fanno iniziare l'icontro col Boss."
 L.autotalk_generic_desc = "Automaticamente selezione l'opzione di dialogo NPC che fanno iniziare la prossima fase della spedizione."
---L.autotalk_notice = "Automatically interacting with NPC %s."
 
 -- Common ability name replacements
 L.absorb = "Assorbimento" -- Used for shield-like abilities that absorb damage or healing

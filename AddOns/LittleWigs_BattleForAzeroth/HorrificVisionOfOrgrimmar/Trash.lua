@@ -49,6 +49,12 @@ mod:RegisterEnableMob(
 )
 
 --------------------------------------------------------------------------------
+-- Locals
+--
+
+local activeBuffs = {}
+
+--------------------------------------------------------------------------------
 -- Localization
 --
 
@@ -89,6 +95,9 @@ if L then
 	L.aqir_mindhunter = "Aqir Mindhunter"
 	L.aqir_venomweaver = "Aqir Venomweaver"
 	L.gamon = "Gamon"
+
+	L["298074_icon"] = 305155 -- Rupture XXX fixed in 11.1.7
+	L["298074_desc"] = 305155 -- Rupture XXX fixed in 11.1.7
 end
 
 --------------------------------------------------------------------------------
@@ -224,7 +233,7 @@ function mod:OnBossEnable()
 	self:RegisterEvent("GOSSIP_SHOW")
 
 	self:RegisterEvent("UNIT_SPELLCAST_START") -- Open Vision
-	self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED") -- War Stomp
+	self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED") -- Rupture, War Stomp
 
 	-- Sanity Restoration Orb
 	self:Log("SPELL_CAST_START", "SanityRestorationOrb", 307870)
@@ -315,9 +324,6 @@ function mod:OnBossEnable()
 	self:Log("SPELL_CAST_START", "DarkSmash", 296718)
 	self:Death("FacelessWillbreakerDeath", 152987, 157608, 164188) -- Faceless Willbreaker, Faceless Willbreaker, Horrific Figment
 
-	-- Burrowing Appendage
-	self:Log("SPELL_CAST_SUCCESS", "Rupture", 298074)
-
 	-- Annihilator Lak'hal
 	self:RegisterEngageMob("AnnihilatorLakhalEngaged", 153942)
 	self:Log("SPELL_CAST_START", "OrbOfAnnihilation", 299110)
@@ -386,6 +392,10 @@ function mod:VerifyEnable()
 	return instanceId == 2212 or instanceId == 2828 -- BFA, Revisited
 end
 
+function mod:OnBossDisable()
+	activeBuffs = {}
+end
+
 --------------------------------------------------------------------------------
 -- Event Handlers
 --
@@ -413,9 +423,17 @@ function mod:UNIT_SPELLCAST_START(event, _, _, spellId)
 end
 
 do
-	local prevCast = nil
+	local prevCast, prev = nil, 0
 	function mod:UNIT_SPELLCAST_SUCCEEDED(_, unit, castGUID, spellId)
-		if spellId == 314723 and castGUID ~= prevCast then -- War Stomp (Gamon)
+		if spellId == 298074 and castGUID ~= prevCast then -- Rupture (Burrowing Appendage)
+			prevCast = castGUID
+			local t = GetTime()
+			if t - prev > 2 then
+				prev = t
+				self:Message(spellId, "orange", nil, L["298074_icon"])
+				self:PlaySound(spellId, "alarm")
+			end
+		elseif spellId == 314723 and castGUID ~= prevCast then -- War Stomp (Gamon)
 			prevCast = castGUID
 			self:WarStomp({sourceGUID = self:UnitGUID(unit)})
 		end
@@ -488,107 +506,70 @@ function mod:NoxiousMixture(args)
 end
 
 do
-	local trackedBuffs = {
-		[315845] = true, -- Sluggish Potion
-		[315849] = true, -- Sickening Potion
-		[315817] = true, -- Spicy Potion
-		[313698] = true, -- Gift of the Titans
+	local buffIds = {
+		315845, -- Sluggish Potion
+		315849, -- Sickening Potion
+		315817, -- Spicy Potion
+		313698, -- Gift of the Titans
 	}
-	local activeBuffs = {}
+	local numBuffs = #buffIds
 
 	function mod:InitBuffs() -- reload protection
-		activeBuffs = {}
-		for spellId in next, trackedBuffs do
-			local auraTbl = self:GetPlayerAura(spellId)
-			if auraTbl then
-				activeBuffs[auraTbl.auraInstanceID] = {auraTbl.expirationTime, spellId}
+		for i = 1, numBuffs do
+			local spellId = buffIds[i]
+			local info = self:GetPlayerAura(spellId)
+			if info then
+				activeBuffs[spellId] = info.expirationTime
 				if spellId == 315845 then -- Sluggish Potion
-					self:Bar(spellId, auraTbl.expirationTime - GetTime(), L.sluggish_potion_effect)
+					self:Bar(spellId, info.expirationTime - GetTime(), L.sluggish_potion_effect)
 				elseif spellId == 315849 then -- Sickening Potion
-					self:Bar(spellId, auraTbl.expirationTime - GetTime(), L.sickening_potion_effect)
+					self:Bar(spellId, info.expirationTime - GetTime(), L.sickening_potion_effect)
 				elseif spellId == 315817 then -- Spicy Potion
-					self:Bar(spellId, auraTbl.expirationTime - GetTime(), L.spicy_potion_effect)
+					self:Bar(spellId, info.expirationTime - GetTime(), L.spicy_potion_effect)
 				elseif spellId == 313698 then -- Gift of the Titans
-					self:Bar(spellId, auraTbl.expirationTime - GetTime())
+					self:Bar(spellId, info.expirationTime - GetTime())
 				end
 			end
 		end
 	end
 
-	function mod:UNIT_AURA(_, _, updateInfo)
-		if not updateInfo or updateInfo.isFullUpdate then
-			self:InitBuffs()
-		else
-			if updateInfo.addedAuras then
-				for i = 1, #updateInfo.addedAuras do
-					local auraTbl = updateInfo.addedAuras[i]
-					local spellId = auraTbl.spellId
-
-					if trackedBuffs[spellId] then
-						activeBuffs[auraTbl.auraInstanceID] = {auraTbl.expirationTime, spellId}
-						if spellId == 315845 then -- Sluggish Potion
-							self:Message(spellId, "green", CL.other:format(CL.you:format(auraTbl.name), L.sluggish_potion_effect))
-							self:Bar(spellId, auraTbl.expirationTime - GetTime(), L.sluggish_potion_effect)
-							self:PlaySound(spellId, "info")
-						elseif spellId == 315849 then -- Sickening Potion
-							self:Message(spellId, "green", CL.other:format(CL.you:format(auraTbl.name), L.sickening_potion_effect))
-							self:Bar(spellId, auraTbl.expirationTime - GetTime(), L.sickening_potion_effect)
-							self:PlaySound(spellId, "info")
-						elseif spellId == 315817 then -- Spicy Potion
-							self:Message(spellId, "green", CL.other:format(CL.you:format(auraTbl.name), L.spicy_potion_effect))
-							self:Bar(spellId, auraTbl.expirationTime - GetTime(), L.spicy_potion_effect)
-							self:PlaySound(spellId, "info")
-						elseif spellId == 313698 then -- Gift of the Titans
-							self:Message(spellId, "green", CL.you:format(auraTbl.name))
-							self:Bar(spellId, auraTbl.expirationTime - GetTime())
-							self:PlaySound(spellId, "long")
-						end
-					end
+	function mod:UNIT_AURA()
+		for i = 1, numBuffs do
+			local spellId = buffIds[i]
+			local info = self:GetPlayerAura(spellId)
+			if info and activeBuffs[spellId] ~= info.expirationTime then
+				activeBuffs[spellId] = info.expirationTime
+				if spellId == 315845 then -- Sluggish Potion
+					self:Message(spellId, "green", CL.other:format(CL.you:format(self:SpellName(spellId)), L.sluggish_potion_effect))
+					self:Bar(spellId, info.expirationTime - GetTime(), L.sluggish_potion_effect)
+					self:PlaySound(spellId, "info")
+				elseif spellId == 315849 then -- Sickening Potion
+					self:Message(spellId, "green", CL.other:format(CL.you:format(self:SpellName(spellId)), L.sickening_potion_effect))
+					self:Bar(spellId, info.expirationTime - GetTime(), L.sickening_potion_effect)
+					self:PlaySound(spellId, "info")
+				elseif spellId == 315817 then -- Spicy Potion
+					self:Message(spellId, "green", CL.other:format(CL.you:format(self:SpellName(spellId)), L.spicy_potion_effect))
+					self:Bar(spellId, info.expirationTime - GetTime(), L.spicy_potion_effect)
+					self:PlaySound(spellId, "info")
+				elseif spellId == 313698 then -- Gift of the Titans
+					self:Message(spellId, "green", CL.you:format(self:SpellName(spellId)))
+					self:Bar(spellId, info.expirationTime - GetTime())
+					self:PlaySound(spellId, "long")
 				end
-			end
-			if updateInfo.removedAuraInstanceIDs then
-				for i = 1, #updateInfo.removedAuraInstanceIDs do
-					local hadBuff = activeBuffs[updateInfo.removedAuraInstanceIDs[i]]
-					if hadBuff then
-						local spellId = hadBuff[2]
-						activeBuffs[updateInfo.removedAuraInstanceIDs[i]] = nil
-						if spellId == 315845 then -- Sluggish Potion
-							self:Message(spellId, "blue", CL.other:format(CL.removed:format(self:SpellName(spellId)), L.slowed))
-							self:StopBar(L.sluggish_potion_effect)
-							self:PlaySound(spellId, "warning")
-						elseif spellId == 315849 then -- Sickening Potion
-							self:Message(spellId, "blue", CL.other:format(CL.removed:format(self:SpellName(spellId)), self:SpellName(315850))) -- Vomit
-							self:StopBar(L.sickening_potion_effect)
-							self:PlaySound(spellId, "warning")
-						elseif spellId == 315817 then -- Spicy Potion
-							self:Message(spellId, "blue", CL.other:format(CL.removed:format(self:SpellName(spellId)), self:SpellName(315818))) -- Burning
-							self:StopBar(L.spicy_potion_effect)
-							self:PlaySound(spellId, "warning")
-						elseif spellId == 313698 then -- Gift of the Titans
-							self:StopBar(spellId)
-						end
-					end
-				end
-			end
-			if updateInfo.updatedAuraInstanceIDs then
-				for i = 1, #updateInfo.updatedAuraInstanceIDs do
-					local hadBuff = activeBuffs[updateInfo.updatedAuraInstanceIDs[i]]
-					if hadBuff then
-						local spellId = hadBuff[2]
-						local auraTbl = self:GetPlayerAura(spellId)
-						if hadBuff[1] ~= auraTbl.expirationTime then
-							activeBuffs[updateInfo.updatedAuraInstanceIDs[i]][1] = auraTbl.expirationTime
-							if spellId == 315845 then -- Sluggish Potion
-								self:Bar(spellId, auraTbl.expirationTime - GetTime(), L.sluggish_potion_effect)
-							elseif spellId == 315849 then -- Sickening Potion
-								self:Bar(spellId, auraTbl.expirationTime - GetTime(), L.sickening_potion_effect)
-							elseif spellId == 315817 then -- Spicy Potion
-								self:Bar(spellId, auraTbl.expirationTime - GetTime(), L.spicy_potion_effect)
-							elseif spellId == 313698 then -- Gift of the Titans
-								self:Bar(spellId, auraTbl.expirationTime - GetTime())
-							end
-						end
-					end
+			elseif not info and activeBuffs[spellId] then
+				activeBuffs[spellId] = nil
+				if spellId == 315845 then -- Sluggish Potion
+					self:Message(spellId, "blue", CL.other:format(CL.removed:format(self:SpellName(spellId)), L.slowed))
+					self:StopBar(L.sluggish_potion_effect)
+					self:PlaySound(spellId, "warning")
+				elseif spellId == 315849 then -- Sickening Potion
+					self:Message(spellId, "blue", CL.other:format(CL.removed:format(self:SpellName(spellId)), self:SpellName(315850))) -- Vomit
+					self:StopBar(L.sickening_potion_effect)
+					self:PlaySound(spellId, "warning")
+				elseif spellId == 315817 then -- Spicy Potion
+					self:Message(spellId, "blue", CL.other:format(CL.removed:format(self:SpellName(spellId)), self:SpellName(315818))) -- Burning
+					self:StopBar(L.spicy_potion_effect)
+					self:PlaySound(spellId, "warning")
 				end
 			end
 		end
@@ -969,19 +950,6 @@ end
 
 function mod:FacelessWillbreakerDeath(args)
 	self:ClearNameplate(args.destGUID)
-end
-
--- Burrowing Appendage
-
-do
-	local prev = 0
-	function mod:Rupture(args)
-		if args.time - prev > 2 then
-			prev = args.time
-			self:Message(args.spellId, "orange")
-			self:PlaySound(args.spellId, "alarm")
-		end
-	end
 end
 
 -- Annihilator Lak'hal

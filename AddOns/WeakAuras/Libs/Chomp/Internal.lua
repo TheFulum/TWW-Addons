@@ -34,9 +34,30 @@ local Internal = Chomp.Internal
 
 Internal.callbacks = LibStub:GetLibrary("CallbackHandler-1.0"):New(Internal)
 
---[[
+--[[ -------------------------------------------------------------------------
+	HELPERS ADDED (robust to empty names)
+-----------------------------------------------------------------------------]]
+
+-- Возвращает слитое "Имя-Реалм" игрока или nil, если имя пока недоступно.
+local function GetPlayerMergedNameOrNil()
+	local pname, prealm = UnitFullName and UnitFullName("player")
+	if pname and pname ~= "" then
+		return Chomp.NameMergedRealm(pname, prealm)
+	end
+	return nil
+end
+
+-- Безопасно вызывает NameMergedRealm только если name непустое.
+local function SafeMergeIfNonEmpty(name, realm)
+	if name and name ~= "" then
+		return Chomp.NameMergedRealm(name, realm)
+	end
+	return nil
+end
+
+--[[ -------------------------------------------------------------------------
 	INTERNAL TABLES
-]]
+-----------------------------------------------------------------------------]]
 
 if not Internal.Filter then
 	Internal.Filter = {}
@@ -84,9 +105,9 @@ for purpose, bits in pairs(Internal.BITS) do
 	end
 end
 
---[[
+--[[ -------------------------------------------------------------------------
 	HELPER FUNCTIONS
-]]
+-----------------------------------------------------------------------------]]
 
 local oneTimeError
 local function HandleMessageIn(prefix, text, channel, sender, target, zoneChannelID, localID, name, instanceID)
@@ -114,7 +135,7 @@ local function HandleMessageIn(prefix, text, channel, sender, target, zoneChanne
 		text = userText
 	end
 
-	local method = channel:match("%:(%u+)$")
+	local method = channel and channel:match("%:(%u+)$")
 	if method == "BATTLENET" or method == "LOGGED" then
 		text = Internal.DecodeQuotedPrintable(text, method == "LOGGED")
 	end
@@ -136,6 +157,11 @@ local function HandleMessageIn(prefix, text, channel, sender, target, zoneChanne
 		return
 	end
 
+	if sender == nil or sender == "" then
+		-- Некорректный отправитель — безопасно игнорируем сообщение.
+		return
+	end
+
 	if not prefixData[sender] then
 		prefixData[sender] = {}
 	end
@@ -143,14 +169,19 @@ local function HandleMessageIn(prefix, text, channel, sender, target, zoneChanne
 	local isBroadcast = bit.band(bitField, Internal.BITS.BROADCAST) == Internal.BITS.BROADCAST
 	if isBroadcast then
 		if not prefixData.broadcastPrefix then
-			-- If the prefix doesn't want broadcast data, don't even parse
-			-- further at all.
+			-- If the prefix doesn't want broadcast data, don't even parse further.
 			return
 		end
 		if msgID == 1 then
 			local broadcastTarget, broadcastText = text:match("^([^\058\127]*)[\058\127](.*)$")
-			local ourName = Chomp.NameMergedRealm(UnitFullName("player"))
-			if sender == ourName or broadcastTarget ~= "" and broadcastTarget ~= ourName then
+
+			-- Получим наше имя безопасно; если его ещё нет — пропускаем
+			local ourName = GetPlayerMergedNameOrNil()
+			if not ourName then
+				return
+			end
+
+			if sender == ourName or (broadcastTarget ~= "" and broadcastTarget ~= ourName) then
 				-- Not for us, quit processing.
 				return
 			else
@@ -165,7 +196,7 @@ local function HandleMessageIn(prefix, text, channel, sender, target, zoneChanne
 			target = prefixData[sender][sessionID].broadcastTarget
 		end
 		-- Last but not least, fake the channel type.
-		channel = channel:gsub("^[^%:]+", "WHISPER")
+		channel = (channel and channel:gsub("^[^%:]+", "WHISPER")) or "WHISPER"
 	end
 
 	if prefixData.rawCallback then
@@ -187,12 +218,9 @@ local function HandleMessageIn(prefix, text, channel, sender, target, zoneChanne
 	local runHandler = true
 	for i = 1, msgTotal do
 		if buffer[i] == nil then
-			-- msgTotal has changed, either by virtue of being the first
-			-- message or by correction in other side's calculations.
 			buffer[i] = true
 			runHandler = false
 		elseif buffer[i] == true then
-			-- Need to hold this message until we're ready to process.
 			runHandler = false
 		elseif runHandler and buffer[i] and (not fullMsgOnly or i == msgTotal) then
 			local handlerData = buffer[i]
@@ -214,8 +242,7 @@ local function HandleMessageIn(prefix, text, channel, sender, target, zoneChanne
 			end
 			buffer[i] = false
 			if i == msgTotal then
-				-- Tidy up the garbage when we've processed the last
-				-- pending message.
+				-- Tidy up the garbage when we've processed the last pending message.
 				prefixData[sender][sessionID] = nil
 			end
 		end
@@ -223,36 +250,53 @@ local function HandleMessageIn(prefix, text, channel, sender, target, zoneChanne
 end
 
 local function ParseInGameMessage(prefix, text, kind, sender, target, zoneChannelID, localID, name, instanceID)
-	if kind == "WHISPER" then
-		target = Chomp.NameMergedRealm(target)
+	-- Нормализуем target только если это WHISPER и target непустой
+	if kind == "WHISPER" and target and target ~= "" then
+		target = SafeMergeIfNonEmpty(target) or target
 	end
-	return prefix, text, kind, Chomp.NameMergedRealm(sender), target, zoneChannelID, localID, name, instanceID
+
+	-- Нормализуем sender, но не допускаем падения при пустом имени
+	if sender and sender ~= "" then
+		sender = SafeMergeIfNonEmpty(sender) or sender
+	end
+
+	return prefix, text, kind, sender, target, zoneChannelID, localID, name, instanceID
 end
 
 local function ParseInGameMessageLogged(prefix, text, kind, sender, target, zoneChannelID, localID, name, instanceID)
-	if kind == "WHISPER" then
-		target = Chomp.NameMergedRealm(target)
+	if kind == "WHISPER" and target and target ~= "" then
+		target = SafeMergeIfNonEmpty(target) or target
 	end
-	return prefix, text, ("%s:LOGGED"):format(kind), Chomp.NameMergedRealm(sender), target, zoneChannelID, localID, name, instanceID
+
+	if sender and sender ~= "" then
+		sender = SafeMergeIfNonEmpty(sender) or sender
+	end
+
+	return prefix, text, ("%s:LOGGED"):format(kind), sender, target, zoneChannelID, localID, name, instanceID
 end
 
 local function ParseBattleNetMessage(prefix, text, kind, bnetIDGameAccount)
 	local name = Internal:GetBattleNetAccountName(bnetIDGameAccount)
-
-	if not name then
+	if not name or name == "" then
 		return
 	end
 
-	return prefix, text, ("%s:BATTLENET"):format(kind), name, Chomp.NameMergedRealm(UnitName("player")), 0, 0, "", 0
+	-- Для target используем наше имя; если недоступно — пропускаем сообщение.
+	local ourName = GetPlayerMergedNameOrNil()
+	if not ourName then
+		return
+	end
+
+	return prefix, text, ("%s:BATTLENET"):format(kind), name, ourName, 0, 0, "", 0
 end
 
 function Internal:TriggerEvent(event, ...)
 	return self.callbacks:Fire(event, ...)
 end
 
---[[
+--[[ -------------------------------------------------------------------------
 	FUNCTION HOOKS
-]]
+-----------------------------------------------------------------------------]]
 
 -- Hooks don't trigger if the hooked function errors, so there's no need to
 -- check parameters, if those parameters cause errors (which most don't now).
@@ -325,9 +369,9 @@ local function HookSendAddonMessageLogged(prefix, text, kind, target)
 	end
 end
 
---[[
+--[[ -------------------------------------------------------------------------
 	BATTLE.NET WRAPPER API
-]]
+-----------------------------------------------------------------------------]]
 
 local function EnumerateFriendGameAccounts()
 	local friendIndex  = 0
@@ -362,7 +406,7 @@ local function CanExchangeWithGameAccount(account)
 	if not account.isOnline then
 		return false  -- Friend isn't even online.
 	elseif account.clientProgram ~= BNET_CLIENT_WOW then
-		return false  -- Friend isn't playing WoW. Imagine.
+		return false  -- Friend isn't playing WoW.
 	elseif not account.isInCurrentRegion then
 		return false
 	end
@@ -394,10 +438,11 @@ function Internal:UpdateBattleNetAccountData()
 	for _, _, account in EnumerateFriendGameAccounts() do
 		if CanExchangeWithGameAccount(account) then
 			local characterName = account.characterName
-			local realmName = string.gsub(account.realmName, "[%s*%-*]", "")
-			local mergedName = Chomp.NameMergedRealm(characterName, realmName)
-
-			self.bnetGameAccounts[mergedName] = account.gameAccountID
+			local realmName = account.realmName and (account.realmName:gsub("[%s%-]", "")) or nil
+			local mergedName = SafeMergeIfNonEmpty(characterName, realmName)
+			if mergedName then
+				self.bnetGameAccounts[mergedName] = account.gameAccountID
+			end
 		end
 	end
 end
@@ -436,9 +481,9 @@ function Internal:GetBattleNetAccountID(targetName)
 	return nil
 end
 
---[[
+--[[ -------------------------------------------------------------------------
 	FRAME SCRIPTS
-]]
+-----------------------------------------------------------------------------]]
 
 Internal:Hide()
 Internal:RegisterEvent("ADDON_LOADED")
@@ -482,6 +527,7 @@ Internal:SetScript("OnEvent", function(self, event, ...)
 		Internal.isReady = true
 		if self.IncomingQueue then
 			for i, q in ipairs(self.IncomingQueue) do
+				-- Передаём все сохранённые аргументы (оставляем как было в оригинале)
 				HandleMessageIn(unpack(q, 1, 4))
 			end
 			self.IncomingQueue = nil
@@ -515,7 +561,6 @@ Internal.VERSION = VERSION
 -- v18+: The future is now old man. These need to exist for compatibility, and
 --       to prevent issues where pre-v18 versions would replace newer ones if
 --       __chomp_internal were to just disappear.
---
 --       Note that we still clear __chomp_internal once PLAYER_LOGIN has
 --       fired, but we don't remove  access to it from the library table
 --       because being able to inspect it at runtime is nice.

@@ -1,6 +1,7 @@
 -- Artifact Scenarios
 
 local L = BigWigs:NewBossLocale("Tugar Bloodtotem", "koKR")
+if not L then return end
 if L then
 	L.tugar = "투가르 블러드토템"
 	L.jormog = "거수 요르모그"
@@ -470,7 +471,7 @@ end
 
 L = BigWigs:NewBossLocale("Tirathon Saltheril", "koKR")
 if L then
-	L.warmup_trigger = "나는 추방당하고 버려진 \"나의\" 일족을 섬기겠다."
+	L.warmup_trigger = [[나는 추방당하고 버려진 "나의" 일족을 섬기겠다.]]
 end
 
 L = BigWigs:NewBossLocale("Vault of the Wardens Trash", "koKR")

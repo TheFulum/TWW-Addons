@@ -1,14 +1,7 @@
 -- Auchindoun
 
-local L = BigWigs:NewBossLocale("Teron'gor", "itIT")
+local L = BigWigs:NewBossLocale("Auchindoun Trash", "itIT")
 if not L then return end
-if L then
-	L.affliction = "Afflizione"
-	L.demonology = "Demonologia"
-	L.destruction = "Distruzione"
-end
-
-L = BigWigs:NewBossLocale("Auchindoun Trash", "itIT")
 if L then
 	L.abyssal = "Abissale della Stirpe Vile"
 end

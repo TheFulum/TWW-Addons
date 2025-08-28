@@ -20,7 +20,7 @@ local darknessComesCount = 1
 
 function mod:GetOptions()
 	return {
-		{451026, "CASTBAR", "CASTBAR_COUNTDOWN"}, -- Darkness Comes
+		{451026, "CASTBAR"}, -- Darkness Comes
 		{426735, "DISPEL"}, -- Burning Shadows
 		{428086, "OFF"}, -- Shadow Bolt
 		-- Normal / Heroic
@@ -66,11 +66,6 @@ function mod:OnEngage()
 		self:CDBar(426735, 11.4) -- Burning Shadows
 		self:CDBar(445996, 12.9) -- Collapsing Darkness
 	end
-	local dawnbreakerTrashModule = BigWigs:GetBossModule("The Dawnbreaker Trash", true)
-	if dawnbreakerTrashModule then
-		-- if the boss is pulled we no longer care about the Plant Arathi Bomb bar
-		dawnbreakerTrashModule:StopBar(CL.explosion) -- Plant Arathi Bomb
-	end
 end
 
 --------------------------------------------------------------------------------
@@ -78,9 +73,10 @@ end
 --
 
 function mod:DarknessComes(args)
-	if darknessComesCount == 1 then -- 1st cast
+	local percent
+	if darknessComesCount == 1 then
 		darknessComesCount = darknessComesCount + 1
-		self:Message(args.spellId, "cyan", CL.percent:format(50, args.spellName))
+		percent = 50
 		if self:Mythic() then
 			self:CDBar(453140, 23.8) -- Collapsing Night
 			self:CDBar(426735, 29.2) -- Burning Shadows
@@ -92,8 +88,8 @@ function mod:DarknessComes(args)
 			self:CDBar(426735, 26.3) -- Burning Shadows
 			self:CDBar(445996, 27.5) -- Collapsing Darkness
 		end
-	else -- 2nd and final cast
-		self:Message(args.spellId, "cyan", CL.percent:format(1, args.spellName))
+	else
+		percent = 1
 		self:StopBar(426735) -- Burning Shadows
 		if self:Mythic() then
 			self:StopBar(453212) -- Obsidian Beam
@@ -103,6 +99,7 @@ function mod:DarknessComes(args)
 			self:StopBar(445996) -- Collapsing Darkness
 		end
 	end
+	self:Message(args.spellId, "cyan", CL.percent:format(percent, args.spellName))
 	self:CastBar(args.spellId, 15)
 	self:PlaySound(args.spellId, "warning")
 end

@@ -19,6 +19,7 @@ mod:RegisterEnableMob(
 	231496, -- Venture Co. Diver
 	231223, -- Disturbed Kelp
 	234373, -- Bomb Pile
+	231197, -- Bubbles
 	231312, -- Venture Co. Electrician
 	231325 -- Darkfuse Jumpstarter
 )
@@ -91,6 +92,10 @@ function mod:GetOptions()
 		{471733, "NAMEPLATE"}, -- Restorative Algae
 		-- Bomb Pile
 		1214337, -- Plant Bombs
+		-- Bubbles
+		{469818, "NAMEPLATE"}, -- Bubble Burp
+		{1217496, "NAMEPLATE"}, -- Splish Splash
+		{469721, "NAMEPLATE"}, -- Backwash
 		-- Venture Co. Electrician
 		{469799, "DISPEL", "NAMEPLATE"}, -- Overcharge
 		-- Darkfuse Jumpstarter
@@ -109,6 +114,7 @@ function mod:GetOptions()
 		[468726] = L.venture_co_diver,
 		[471736] = L.disturbed_kelp,
 		[1214337] = L.bomb_pile,
+		[469818] = L.bubbles,
 		[469799] = L.venture_co_electrician,
 		[465666] = L.darkfuse_jumpstarter,
 	}
@@ -211,6 +217,13 @@ function mod:OnBossEnable()
 	self:Log("SPELL_CAST_START", "PlantBombs", 1214337)
 	self:Log("SPELL_CAST_SUCCESS", "PlantBombsSuccess", 1214337)
 
+	-- Bubbles
+	self:RegisterEngageMob("BubblesEngaged", 231197)
+	self:Log("SPELL_CAST_START", "BubbleBurp", 469818)
+	self:Log("SPELL_CAST_START", "SplishSplash", 1217496)
+	self:Log("SPELL_CAST_START", "Backwash", 469721)
+	self:Death("BubblesDeath", 231197)
+
 	-- Venture Co. Electrician
 	self:RegisterEngageMob("VentureCoElectricianEngaged", 231312)
 	self:Log("SPELL_CAST_SUCCESS", "Overcharge", 469799)
@@ -257,7 +270,7 @@ end
 
 function mod:Shreddation(args)
 	self:Message(args.spellId, "orange")
-	self:Nameplate(args.spellId, 25.5, args.sourceGUID)
+	self:Nameplate(args.spellId, 13.4, args.sourceGUID)
 	self:PlaySound(args.spellId, "alarm")
 end
 
@@ -274,7 +287,7 @@ end
 
 function mod:Flamethrower(args)
 	self:Message(args.spellId, "yellow")
-	self:Nameplate(args.spellId, 25.5, args.sourceGUID)
+	self:Nameplate(args.spellId, 26.7, args.sourceGUID)
 	self:PlaySound(args.spellId, "alarm")
 end
 
@@ -301,7 +314,6 @@ do
 end
 
 function mod:TrickshotInterrupt(args)
-	-- TODO 10.5?
 	self:Nameplate(1214468, 12.3, args.destGUID)
 end
 
@@ -322,7 +334,7 @@ end
 do
 	local prev = 0
 	function mod:WindUp(args)
-		self:Nameplate(args.spellId, 18.2, args.sourceGUID)
+		self:Nameplate(args.spellId, 17.4, args.sourceGUID)
 		if args.time - prev > 2 then
 			prev = args.time
 			self:Message(args.spellId, "yellow")
@@ -642,6 +654,68 @@ do
 	end
 end
 
+-- Bubbles
+
+do
+	local timer
+
+	function mod:BubblesEngaged(guid)
+		self:CDBar(469818, 4.6) -- Bubble Burp
+		self:Nameplate(469818, 4.6, guid) -- Bubble Burp
+		self:CDBar(1217496, 9.2) -- Splish Splash
+		self:Nameplate(1217496, 9.2, guid) -- Splish Splash
+		self:CDBar(469721, 15.3) -- Backwash
+		self:Nameplate(469721, 15.3, guid) -- Backwash
+		timer = self:ScheduleTimer("BubblesDeath", 30)
+	end
+
+	function mod:BubbleBurp(args)
+		if timer then
+			self:CancelTimer(timer)
+		end
+		self:Message(args.spellId, "red")
+		self:CDBar(args.spellId, 21.9)
+		self:Nameplate(args.spellId, 21.9, args.sourceGUID)
+		self:PlaySound(args.spellId, "alarm")
+		timer = self:ScheduleTimer("BubblesDeath", 30)
+	end
+
+	function mod:SplishSplash(args)
+		if timer then
+			self:CancelTimer(timer)
+		end
+		self:Message(args.spellId, "orange")
+		self:CDBar(args.spellId, 21.9)
+		self:Nameplate(args.spellId, 21.9, args.sourceGUID)
+		self:PlaySound(args.spellId, "alarm")
+		timer = self:ScheduleTimer("BubblesDeath", 30)
+	end
+
+	function mod:Backwash(args)
+		if timer then
+			self:CancelTimer(timer)
+		end
+		self:Message(args.spellId, "yellow")
+		self:CDBar(args.spellId, 21.9)
+		self:Nameplate(args.spellId, 21.9, args.sourceGUID)
+		self:PlaySound(args.spellId, "alert")
+		timer = self:ScheduleTimer("BubblesDeath", 30)
+	end
+
+	function mod:BubblesDeath(args)
+		if timer then
+			self:CancelTimer(timer)
+			timer = nil
+		end
+		self:StopBar(469818) -- Bubble Burp
+		self:StopBar(1217496) -- Splish Splash
+		self:StopBar(469721) -- Backwash
+		if args then
+			self:ClearNameplate(args.destGUID)
+		end
+	end
+end
+
 -- Venture Co. Electrician
 
 function mod:VentureCoElectricianEngaged(guid)
@@ -666,7 +740,7 @@ end
 -- Darkfuse Jumpstarter
 
 function mod:DarkfuseJumpstarterEngaged(guid)
-	self:Nameplate(465666, 5.6, guid) -- Sparkslam
+	self:Nameplate(465666, 5.7, guid) -- Sparkslam
 end
 
 do

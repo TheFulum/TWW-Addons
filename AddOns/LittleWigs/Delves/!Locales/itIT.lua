@@ -1,24 +1,7 @@
--- Archival Assault
-
-local L = BigWigs:NewBossLocale("Captain Nil'hitan", "itIT")
-if L then
-	--L.captain_nilhitan = "Captain Nil'hitan"
-end
-
-L = BigWigs:NewBossLocale("Portalmaster Halsan", "itIT")
-if L then
-	--L.portalmaster_halsan = "Portalmaster Halsan"
-end
-
-L = BigWigs:NewBossLocale("Voidrider Challnax", "itIT")
-if L then
-	--L.voidripper = "Voidripper"
-	--L.voidrider_challnax= "Voidrider Challnax"
-end
-
 -- Demolition Dome
 
-L = BigWigs:NewBossLocale("The Underpin", "itIT")
+local L = BigWigs:NewBossLocale("The Underpin", "itIT")
+if not L then return end
 if L then
 	--L.the_underpin = "The Underpin (Tier 8)"
 	--L.crony = "Crony"
@@ -49,11 +32,6 @@ end
 
 -- Excavation Site 9
 
-L = BigWigs:NewBossLocale("Beste Glatisant", "itIT")
-if L then
-	L.beste_glatisant = "Bestia Ululante"
-end
-
 L = BigWigs:NewBossLocale("Craggle Fritzbrains", "itIT")
 if L then
 	--L.craggle_fritzbrains = "Craggle Fritzbrains"
@@ -83,11 +61,6 @@ if L then
 end
 
 -- Kriegval's Rest
-
-L = BigWigs:NewBossLocale("Faceless One Kriegval's Rest", "itIT")
-if L then
-	L.faceless_one = "Senzavolto"
-end
 
 L = BigWigs:NewBossLocale("Tomb-Raider Drywhisker", "itIT")
 if L then
@@ -238,13 +211,6 @@ if L then
 	L.waxface = "Ceramuso"
 end
 
--- Voidrazor Sanctuary
-
-L = BigWigs:NewBossLocale("Nexus-Princess Ky'veza (Tier 11)", "itIT")
-if L then
-	--L.nexus_princess_kyveza = "Nexus-Princess Ky'veza"
-end
-
 -- Zekvir's Lair
 
 L = BigWigs:NewBossLocale("Zekvir", "itIT")
@@ -260,19 +226,6 @@ if L then
 end
 
 -- Trash
-
-L = BigWigs:NewBossLocale("Ethereal Trash", "itIT")
-if L then
-	--L.ethereal_trash = "Ethereal Trash"
-
-	--L.shadeye_observer = "Shadeye Observer"
-	--L.shadowguard_phasecutter = "Shadowguard Phasecutter"
-	--L.shadowguard_arcanotech = "Shadowguard Arcanotech"
-	--L.shadowguard_soulbreaker = "Shadowguard Soulbreaker"
-	--L.shadowguard_steelsoul = "Shadowguard Steelsoul"
-	--L.siphoned_drake = "Siphoned Drake"
-	L.steelsoul_arcanoward = "Arcanoguardia d'Animacciaio"
-end
 
 L = BigWigs:NewBossLocale("Fungarian Delve Trash", "itIT")
 if L then
@@ -300,7 +253,6 @@ if L then
 	L.punchy_thug = "Scagnozzo Violento"
 	--L.flinging_flicker = "Flinging Flicker"
 	L.bomb_bot = "Robobomba"
-	--L.rad_rat = "Rad Rat"
 end
 
 L = BigWigs:NewBossLocale("Kobold Delve Trash", "itIT")
@@ -323,24 +275,6 @@ if L then
 	--L.crazed_predator = "Crazed Predator"
 	--L.deepwater_makura = "Deepwater Makura"
 	L.kobyss_trickster = "Ingannatore Kobyss"
-end
-
-L = BigWigs:NewBossLocale("Ky'veza Rares", "itIT")
-if L then
-	--L.rares = "Ky'veza Rares"
-
-	--L.treasure_wraith = "Treasure Wraith"
-	--L.invasive_phasecrawler = "Invasive Phasecrawler"
-	--L.drude = "D'rude"
-	--L.great_devourer = "Great Devourer"
-	--L.pactsworn_fraycaller = "Pactsworn Fraycaller"
-	--L.pactsworn_dustblade = "Pactsworn Dustblade"
-	--L.pactsworn_sandreaver = "Pactsworn Sandreaver"
-	--L.pactsworn_arcanist = "Pactsworn Arcanist"
-	--L.pactsworn_wildcaller = "Pactsworn Wildcaller"
-	--L.nexus_princess_kyveza = "Nexus-Princess Ky'veza (Random Spawn)"
-	L.zekvir = "Zekvir"
-	L.the_underpin = "Il Capofondo"
 end
 
 L = BigWigs:NewBossLocale("Nerubian Delve Trash", "itIT")
@@ -384,4 +318,31 @@ if L then
 	--L.deepwalker_guardian = "Deepwalker Guardian"
 	--L.crazed_abomination = "Crazed Abomination"
 	--L.web_marauder = "Web Marauder"
+end
+
+L = BigWigs:NewBossLocale("Underpin Rares", "itIT")
+if L then
+	--L.rares = "Underpin Rares"
+
+	--L.treasure_wraith = "Treasure Wraith"
+	--L.treasure_crab = "Treasure Crab"
+	--L.hovering_menace = "Hovering Menace"
+	--L.malfunctioning_pummeler = "Malfunctioning Pummeler"
+	--L.underpins_adoring_fan = "Underpin's Adoring Fan"
+	--L.underpins_well_connected_friend = "Underpin's Well-Connected Friend"
+	--L.underpins_explosive_ally = "Underpin's Explosive Ally"
+	--L.underpins_bodyguards_intern = "Underpin's Bodyguard's Intern"
+	--L.aggressively_lost_hobgoblin = "Aggressively Lost Hobgoblin"
+	--L.the_underpin = "The Underpin (Random Spawn)"
+
+	--L.underpin_retreat_trigger = "People always messin' around on my perfectly legal, deeded land!"
+end
+
+L = BigWigs:NewBossLocale("Overcharged Trash", "itIT")
+if L then
+	--L.overcharged_trash = "Overcharged Trash"
+
+	--L.awakened_defensive_construct = "Awakened Defensive Construct"
+	--L.awakened_defense_matrix = "Awakened Defense Matrix"
+	--L.overcharged_bot = "Overcharged Bot"
 end

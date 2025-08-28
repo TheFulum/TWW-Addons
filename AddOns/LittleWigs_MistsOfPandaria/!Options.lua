@@ -100,15 +100,16 @@ BigWigs:AddSounds("Trial of the King", {
 
 BigWigs:AddColors("Gekkan", {
 	[118903] = {"blue","red"},
-	[118940] = "orange",
 	[118963] = {"blue","purple","yellow"},
-	[118988] = "red",
+	[118988] = {"blue","red"},
+	["heal"] = "orange",
 	["stages"] = "green",
 })
 
 BigWigs:AddSounds("Gekkan", {
-	[118940] = "alert",
 	[118963] = "warning",
+	[118988] = "alarm",
+	["heal"] = "alert",
 	["stages"] = "info",
 })
 
@@ -502,7 +503,6 @@ BigWigs:AddSounds("Sha of Doubt", {
 })
 
 BigWigs:AddColors("Temple of the Jade Serpent Trash", {
-	[110099] = "blue",
 	[110125] = {"blue","red"},
 	[114646] = "purple",
 	[395859] = "red",
@@ -522,7 +522,6 @@ BigWigs:AddColors("Temple of the Jade Serpent Trash", {
 })
 
 BigWigs:AddSounds("Temple of the Jade Serpent Trash", {
-	[110099] = "underyou",
 	[110125] = "alert",
 	[114646] = "alert",
 	[395859] = "warning",

@@ -3,11 +3,9 @@ local BigWigs = BigWigs
 local options = {}
 
 local C = BigWigs.C
-local loader = BigWigsLoader
-local API = BigWigsAPI
 
-local L = API:GetLocale("BigWigs")
-local CL = API:GetLocale("BigWigs: Common")
+local L = BigWigsAPI:GetLocale("BigWigs")
+local CL = BigWigsAPI:GetLocale("BigWigs: Common")
 
 local ldbi = LibStub("LibDBIcon-1.0")
 local acr = LibStub("AceConfigRegistry-3.0")
@@ -16,6 +14,8 @@ local AceGUI = LibStub("AceGUI-3.0")
 local adbo = LibStub("AceDBOptions-3.0")
 local lds = LibStub("LibDualSpec-1.0", true)
 
+local loader = BigWigsLoader
+local API = BigWigsAPI
 options.SendMessage = loader.SendMessage
 local UnitName = loader.UnitName
 
@@ -44,16 +44,15 @@ local soundModule
 local configFrame, isPluginOpen
 
 local showToggleOptions, getAdvancedToggleOption = nil, nil
-local toggleOptionsStatusTable, lastOptionsTab = {}, nil
+local toggleOptionsStatusTable = {}
 
-local C_EncounterJournal_GetSectionInfo = loader.isClassic and function(key)
-	local info = (loader.isCata or loader.isMists) and C_EncounterJournal.GetSectionInfo(key)
+local C_EncounterJournal_GetSectionInfo = (loader.isClassic and not loader.isMists) and function(key)
+	local info = loader.isCata and C_EncounterJournal.GetSectionInfo(key)
 	if info then
 		-- Cataclysm only has section info for Cataclysm content, return it if found
-		-- Mists has all dungeon content, but is missing pre-Cata raids
 		return info
 	end
-	info = API:GetLocale("BigWigs: Encounter Info")[key]
+	info = BigWigsAPI:GetLocale("BigWigs: Encounter Info")[key]
 	if info then
 		-- Options uses a few more fields, so copy the entry and include them
 		local tbl = {}
@@ -71,17 +70,18 @@ local acOptions = {
 	type = "group",
 	name = "BigWigs",
 	get = function(info)
-		return loader.db.profile[info[#info]]
+		return BigWigs.db.profile[info[#info]]
 	end,
 	set = function(info, value)
 		local key = info[#info]
-		loader.db.profile[key] = value
+		BigWigs.db.profile[key] = value
+		options:SendMessage("BigWigs_CoreOptionToggled", key, value)
 	end,
 	args = {
 		general = {
-			order = 0,
+			order = 20,
 			type = "group",
-			name = L.general,
+			name = "BigWigs",
 			args = {
 				introduction = {
 					type = "description",
@@ -248,21 +248,6 @@ local acOptions = {
 				},
 			},
 		},
-		tools = {
-			order = 1,
-			type = "group",
-			name = L.tools,
-			args = {
-				toolsDesc = {
-					type = "description",
-					name = L.toolsDesc,
-					fontSize = "large",
-					order = 0,
-					width = "full",
-				},
-			},
-			hidden = loader.isVanilla,
-		},
 	},
 }
 
@@ -279,7 +264,7 @@ do
 			childGroups = "tab",
 			order = 100,
 			args = {
-				profile = adbo:GetOptionsTable(loader.db),
+				profile = adbo:GetOptionsTable(BigWigs.db),
 				export = addonTable.sharingOptions.exportSection,
 				import = addonTable.sharingOptions.importSection,
 			},
@@ -288,7 +273,7 @@ do
 		acOptions.args.general.args.profileOptions.args.profile.order = 1
 
 		if lds then
-			lds:EnhanceOptions(acOptions.args.general.args.profileOptions.args.profile, loader.db)
+			lds:EnhanceOptions(acOptions.args.general.args.profileOptions.args.profile, BigWigs.db)
 		end
 
 		acr:RegisterOptionsTable("BigWigs", getOptions, true)
@@ -1144,34 +1129,6 @@ local function statsFirstLabelOnEnter(self)
 	bwTooltip:Show()
 end
 
-local function toggleOptionsTabSelected(widget, callback, tab)
-	widget:PauseLayout()
-	widget:ReleaseChildren()
-
-	local module = widget:GetUserData("module")
-	local scrollFrame = widget:GetUserData("scrollFrame")
-	local dropdown = widget:GetUserData("dropdown")
-	local tabOptions = widget:GetUserData("tabOptions")
-	for i, option in next, tabOptions[tab] do
-		local o = option
-		if type(o) == "table" then o = option[1] end
-		if module.optionHeaders and module.optionHeaders[o] then
-			local header = AceGUI:Create("Heading")
-			header:SetText(module.optionHeaders[o])
-			header:SetFullWidth(true)
-			widget:AddChild(header)
-		end
-		widget:AddChildren(getDefaultToggleOption(scrollFrame, dropdown, module, option))
-	end
-
-	-- Store last active tab
-	lastOptionsTab = tab
-
-	widget:ResumeLayout()
-	scrollFrame:PerformLayout()
-	widget:PerformLayout()
-end
-
 local function populateToggleOptions(widget, module)
 	visibleSpellDescriptionWidgets = {}
 	local scrollFrame = widget:GetUserData("parent")
@@ -1243,7 +1200,6 @@ local function populateToggleOptions(widget, module)
 				"story", "timewalk", "LFR", "normal", "heroic", "mythic",
 				"N10", "N25", "H10", "H25",
 				"SOD", "level1", "level2", "level3", "hardcore",
-				"solotier8", "solotier11",
 			}
 			for diff, tbl in next, sDB do -- Unknown Stats
 				local found = false
@@ -1341,71 +1297,16 @@ local function populateToggleOptions(widget, module)
 	end
 
 	if module.SetupOptions then module:SetupOptions() end
-
-	local tabs = {}
-	if module.optionHeaders then
-		for _, optionHeader in next, module.optionHeaders do
-			if type(optionHeader) == "table" and optionHeader.tabName then
-				table.insert(tabs, optionHeader)
-			end
+	for i, option in next, module.toggleOptions do
+		local o = option
+		if type(o) == "table" then o = option[1] end
+		if module.optionHeaders and module.optionHeaders[o] then
+			local header = AceGUI:Create("Heading")
+			header:SetText(module.optionHeaders[o])
+			header:SetFullWidth(true)
+			scrollFrame:AddChild(header)
 		end
-	end
-
-	if #tabs > 0 then -- tabs!
-		local generalTabExists = nil
-		local tabbedOptions = {}
-		local tabInfo, tabOptions  = {}, {}
-		for _, tab in next, tabs do
-			local text = tab.tabName
-			if text == "general" or text == CL.general then
-				generalTabExists = text
-			end
-			local tabData = tab[1]
-			table.insert(tabInfo, { text = text, value = text })
-			tabOptions[text] = tabData
-			for _, option in next, tabData do
-				tabbedOptions[option] = true
-			end
-		end
-
-		for _, option in next, module.toggleOptions do
-			local o = option
-			if type(o) == "table" then o = option[1] end
-			if not tabbedOptions[o] then -- Any options that are not assigned will go to the general tab
-				if not generalTabExists then
-					local value = "general"
-					table.insert(tabInfo, 1, { text = CL.general, value = value })
-					generalTabExists = value
-				end
-				tabOptions[generalTabExists] = tabOptions[generalTabExists] or {}
-				table.insert(tabOptions[generalTabExists], option)
-			end
-		end
-
-		local tabsWidget = AceGUI:Create("TabGroup")
-		tabsWidget:SetLayout("Flow")
-		tabsWidget:SetTabs(tabInfo)
-		tabsWidget:SetFullWidth(true)
-		tabsWidget:SetCallback("OnGroupSelected", toggleOptionsTabSelected)
-		tabsWidget:SetUserData("module", module)
-		tabsWidget:SetUserData("scrollFrame", scrollFrame)
-		tabsWidget:SetUserData("dropdown", widget)
-		tabsWidget:SetUserData("tabOptions", tabOptions)
-		tabsWidget:SelectTab(lastOptionsTab and lastOptionsTab or tabInfo[1].value)
-
-		scrollFrame:AddChild(tabsWidget)
-	else -- no tabs
-		for i, option in next, module.toggleOptions do
-			local o = option
-			if type(o) == "table" then o = option[1] end
-			if module.optionHeaders and module.optionHeaders[o] then
-				local header = AceGUI:Create("Heading")
-				header:SetText(module.optionHeaders[o])
-				header:SetFullWidth(true)
-				scrollFrame:AddChild(header)
-			end
-			scrollFrame:AddChildren(getDefaultToggleOption(scrollFrame, widget, module, option))
-		end
+		scrollFrame:AddChildren(getDefaultToggleOption(scrollFrame, widget, module, option))
 	end
 
 	local list = AceGUI:Create("Button")
@@ -1425,7 +1326,6 @@ function showToggleOptions(widget, event, group, noScrollReset)
 	if not noScrollReset then
 		toggleOptionsStatusTable.restore_offset = nil
 		toggleOptionsStatusTable.restore_scrollvalue = nil
-		lastOptionsTab = nil
 	end
 	toggleOptionsStatusTable.offset = toggleOptionsStatusTable.restore_offset
 	toggleOptionsStatusTable.scrollvalue = toggleOptionsStatusTable.restore_scrollvalue
@@ -1771,9 +1671,13 @@ do
 					end
 
 					-- add zones to options
-					addModuleToOptions(loader.zoneTbl[id], treeTbl, addonNameToHeader, name or id, zoneName)
-					if loader.currentExpansion.currentSeason[id] then
-						addModuleToOptions(loader.currentExpansion.currentSeason[id], treeTbl, addonNameToHeader, name or id, zoneName)
+					local zoneAddon = loader.zoneTbl[id]
+					if type(zoneAddon) == "table" then
+						for j = 1, #zoneAddon do
+							addModuleToOptions(zoneAddon[j], treeTbl, addonNameToHeader, name or id, zoneName)
+						end
+					else
+						addModuleToOptions(zoneAddon, treeTbl, addonNameToHeader, name or id, zoneName)
 					end
 				end
 			end
@@ -1791,7 +1695,11 @@ do
 			if remappedZones[id] then
 				id = remappedZones[id]
 			end
-			local zoneAddon = loader.currentExpansion.currentSeason[id] or loader.zoneTbl[id]
+			local zoneAddon = loader.zoneTbl[id]
+			if type(zoneAddon) == "table" then
+				-- on Retail default to Current Season, on Classic default to the expansion addon
+				zoneAddon = loader.isRetail and zoneAddon[#zoneAddon] or zoneAddon[1]
+			end
 			local parent = zoneAddon and addonNameToHeader[zoneAddon]
 			if instanceType == "none" then
 				local mapId = GetBestMapForUnit("player")
@@ -1877,9 +1785,6 @@ do
 		for key, opts in next, subPanelRegistry do
 			acOptions.args[key] = opts()
 		end
-		for key, optionsTable in next, API.GetToolOptionTables() do
-			acOptions.args.tools.args[key] = optionsTable
-		end
 		return acOptions
 	end
 end
@@ -1935,7 +1840,7 @@ do
 
 	local _, addonTable = ...
 	-- DO NOT USE THIS DIRECTLY. This code may not be loaded
-	-- Use BigWigsAPI.RegisterProfile(addonName, profileString, optionalCustomProfileName, optionalCallbackFunction)
+	-- Use BigWigsAPI:ImportProfileString(addonName, profileString)
 	function options:SaveImportStringDataFromAddOn(addonName, profileString, optionalCustomProfileName, optionalCallbackFunction)
 		if type(addonName) ~= "string" or #addonName < 3 then error("Invalid addon name for profile import.") end
 		if type(profileString) ~= "string" or #profileString < 3 then error("Invalid profile string for profile import.") end
@@ -1943,12 +1848,12 @@ do
 		if optionalCallbackFunction and type(optionalCallbackFunction) ~= "function" then error("Invalid custom callback function for the string you want to import.") end
 		-- All AceConfigDialog code, go there for original
 		popup:Show()
-		local profileName = loader.db:GetCurrentProfile()
+		local profileName = BigWigs.db:GetCurrentProfile()
 		if not optionalCustomProfileName or profileName == optionalCustomProfileName then
 			optionalCustomProfileName = nil
 			textFrame:SetText(L.confirm_import_addon:format(addonName, profileName))
 		else
-			local profiles = loader.db:GetProfiles()
+			local profiles = BigWigs.db:GetProfiles()
 			local found = false
 			for i = 1, #profiles do
 				local name = profiles[i]
@@ -1974,7 +1879,7 @@ do
 			acceptButton:SetScript("OnClick", nil)
 			cancelButton:SetScript("OnClick", nil)
 			if optionalCustomProfileName then
-				loader.db:SetProfile(optionalCustomProfileName)
+				BigWigs.db:SetProfile(optionalCustomProfileName)
 			end
 			addonTable.SaveImportStringDataFromAddOn(profileString)
 			if optionalCallbackFunction then

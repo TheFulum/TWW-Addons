@@ -96,14 +96,9 @@ plugin.pluginOptions = {
 --
 
 do
-	local shouldRestoreBanner = false
 	local function updateProfile()
-		if shouldRestoreBanner then
-			shouldRestoreBanner = false
-			BossBanner:RegisterEvent("BOSS_KILL")
-		end
-
 		local db = plugin.db.profile
+
 		for k, v in next, db do
 			local defaultType = type(plugin.defaultDB[k])
 			if defaultType == "nil" then
@@ -112,27 +107,17 @@ do
 				db[k] = plugin.defaultDB[k]
 			end
 		end
-
-		if not db.blizzVictory and type(BossBanner) == "table" and BossBanner:IsEventRegistered("BOSS_KILL") then
-			shouldRestoreBanner = true
-			BossBanner:UnregisterEvent("BOSS_KILL")
-		end
 	end
 
 	function plugin:OnPluginEnable()
-		updateProfile()
-
+		if not self.db.profile.blizzVictory and BossBanner then
+			BossBanner:UnregisterEvent("BOSS_KILL")
+		end
 		self:RegisterMessage("BigWigs_OnBossWin")
 		self:RegisterMessage("BigWigs_VictorySound")
 
 		self:RegisterMessage("BigWigs_ProfileUpdate", updateProfile)
-	end
-
-	function plugin:OnPluginDisable()
-		if shouldRestoreBanner then
-			shouldRestoreBanner = false
-			BossBanner:RegisterEvent("BOSS_KILL")
-		end
+		updateProfile()
 	end
 end
 
@@ -146,20 +131,12 @@ function plugin:BigWigs_OnBossWin(event, module)
 	end
 end
 
-do
-	local prev = 0
-	local GetTime = GetTime
-	function plugin:BigWigs_VictorySound()
-		local t = GetTime()
-		if t-prev > 5 then -- Dastardly Duos sanity preservation
-			prev = t
-			local soundName = self.db.profile.soundName
-			if soundName ~= "None" then
-				local sound = media:Fetch(SOUND, soundName, true)
-				if sound then
-					self:PlaySoundFile(sound)
-				end
-			end
+function plugin:BigWigs_VictorySound()
+	local soundName = self.db.profile.soundName
+	if soundName ~= "None" then
+		local sound = media:Fetch(SOUND, soundName, true)
+		if sound then
+			self:PlaySoundFile(sound)
 		end
 	end
 end

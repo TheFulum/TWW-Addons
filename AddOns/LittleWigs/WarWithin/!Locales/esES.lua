@@ -1,6 +1,7 @@
 -- Ara-Kara, City of Echoes
 
 local L = BigWigs:NewBossLocale("Ara-Kara, City of Echoes Trash", "esES")
+if not L then return end
 if L then
 	L.discordant_attendant = "Auxiliar discordante"
 	L.engorged_crawler = "Camorrista atiborrado"
@@ -52,7 +53,7 @@ end
 
 L = BigWigs:NewBossLocale("Brew Master Aldryr", "esES")
 if L then
-	L.cinderbrew_delivered = "Tragoceniza servida"
+	--L.cinderbrew_delivered = "Cinderbrew delivered"
 end
 
 -- City of Threads
@@ -74,15 +75,15 @@ if L then
 	L.elder_shadeweaver = "Tejesombras anciano"
 	L.hulking_warshell = "Concha de guerra descomunal"
 
-	L.xephitik_defeated_trigger = "¡Basta!"
-	L.fangs_of_the_queen_warmup_trigger = "El Transformatorio fue el hogar de nuestra evolución sagrada."
-	L.izo_warmup_trigger = "¡Basta! Os habéis ganado un hueco en mi colección. Os la mostraré."
+	--L.xephitik_defeated_trigger = "Enough!"
+	--L.fangs_of_the_queen_warmup_trigger = "The Transformatory was once the home of our sacred evolution."
+	--L.izo_warmup_trigger = "Enough! You've earned a place in my collection. Let me usher you in."
 	L.custom_on_autotalk_desc = "|cFFFF0000Requiere Pícaro, Sacerdote, o 25 de habilidad en Ingeniería de Khaz Algar.|r Selecciona automáticamente la opción de diálogo del NPC que te otorga el aura 'Poder Robado'."
 end
 
 L = BigWigs:NewBossLocale("Fangs of the Queen", "esES")
 if L then
-	L.ice_sickles_trigger = "¡Y la escarcha muerde!"
+	--L.ice_sickles_trigger = "...and the frost bites!"
 end
 
 -- Darkflame Cleft
@@ -102,68 +103,46 @@ if L then
 	L.corridor_creeper = "Trepador de corredores"
 	L.creaky_mine_cart = "Vagoneta chirriante"
 
-	L.minecart = "Minijuego de la vagoneta"
-	L.hits = "Golpes"
-	L.minecart_over = "Ganador: %s (%d golpes)"
+	--L.minecart = "Mine Cart Minigame"
+	--L.hits = "Hits"
+	--L.minecart_over = "Winner: %s (%d hits)"
 end
 
 L = BigWigs:NewBossLocale("Ol' Waxbeard", "esES")
 if L then
-	L.dynamite_mine_cart = "Vagoneta de dinamita"
+	--L.dynamite_mine_cart = "Dynamite Mine Cart"
 end
 
 L = BigWigs:NewBossLocale("The Darkness", "esES")
 if L then
-	L.wriggling_darkspawn = "Engendro oscuro sinuoso"
-end
-
--- Eco-Dome Al'dani
-
-L = BigWigs:NewBossLocale("Eco-Dome Al'dani Trash", "esES")
-if L then
-	L.terrified_broker = "Especulador aterrorizado"
-	L.arcane_siphon = "Succión arcana"
-	L.overgorged_mite = "Ácaro empachado"
-	L.voracious_gorger = "Engullidor voraz"
-	L.ravenous_destroyer = "Destructor voraz"
-	L.overcharged_sentinel = "Centinela sobrecargado"
-	L.wastelander_farstalker = "Acechador lejano del páramo"
-	L.tamed_ruinstalker = "Acecharruina domesticado"
-	L.wastelander_ritualist = "Ritualista del páramo"
-	L.wastelander_pactspeaker = "Emitepactos del páramo"
-	L.karesh_elemental = "Elemental de K'aresh"
-	L.burrowing_creeper = "Trepador excavador"
-	L.wastes_creeper = "Trepador del páramo"
-
-	L.taahbat_and_awazj_warmup_trigger = "No tengo tiempo para esto. ¡Taah'bat! Asegúrate de que no avancen."
-	--azhiccar_warmup_trigger = "¡Cuidado! ¡Algo se acerca!" --from Ve'nari
+	--L.wriggling_darkspawn = "Wriggling Darkspawn"
 end
 
 -- Operation: Floodgate
 
 L = BigWigs:NewBossLocale("Operation: Floodgate Trash", "esES")
 if L then
-	L.weapons_stockpiles_pilfered = "Reserva de armas birlada"
-	L.weapons_stockpiles_pilfered_desc = "Muestra una alerta cuando una Reserva de armas han sido birladas."
+	--L.weapons_stockpiles_pilfered = "Weapons Stockpiles Pilfered"
+	--L.weapons_stockpiles_pilfered_desc = "Show an alert when a Weapons Stockpile has been pilfered."
 
-	L.shreddinator_3000 = "Desmenuzanator 3000"
-	L.mechadrone_sniper = "Mecadrón francotirador"
+	--L.shreddinator_3000 = "Shreddinator 3000"
+	--L.mechadrone_sniper = "Mechadrone Sniper"
 	L.loaderbot = "Robot de carga"
-	L.darkfuse_hyena = "Hiena de Fundisombras"
-	L.darkfuse_demolitionist = "Demoledor de Fundisombras"
-	L.darkfuse_inspector = "Inspector de Fundisombras"
-	L.darkfuse_bloodwarper = "Cambiasangre de Fundisombras"
-	L.undercrawler = "Infrarreptador"
-	L.venture_co_surveyor = "Perito de Ventura y Cía"
-	L.venture_co_architect = "Arquitecto de Ventura y Cía"
-	L.venture_co_diver = "Buceador de Ventura y Cía"
-	L.disturbed_kelp = "Alga perturbada"
-	L.bomb_pile = "Pila de bombas"
-	L.bubbles = "Pompas"
-	L.venture_co_electrician = "Electricista de Ventura y Cía"
-	L.darkfuse_jumpstarter = "Impulsador de Fundisombras"
+	--L.darkfuse_hyena = "Darkfuse Hyena"
+	--L.darkfuse_demolitionist = "Darkfuse Demolitionist"
+	--L.darkfuse_inspector = "Darkfuse Inspector"
+	--L.darkfuse_bloodwarper = "Darkfuse Bloodwarper"
+	--L.undercrawler = "Undercrawler"
+	--L.venture_co_surveyor = "Venture Co. Surveyor"
+	--L.venture_co_architect = "Venture Co. Architect"
+	--L.venture_co_diver = "Venture Co. Diver"
+	--L.disturbed_kelp = "Disturbed Kelp"
+	--L.bomb_pile = "Bomb Pile"
+	--L.bubbles = "Bubbles"
+	--L.venture_co_electrician = "Venture Co. Electrician"
+	--L.darkfuse_jumpstarter = "Darkfuse Jumpstarter"
 
-	L.geezle_gigazap_warmup = "Este proyecto no podrá continuar sin su científico al mando. ¡Manda ese cerebrito a la nevera!"
+	--L.geezle_gigazap_warmup = "This project can't continue without the scientist behind it all. Put that big brain on ice!"
 end
 
 -- Priory of the Sacred Flame
@@ -189,13 +168,13 @@ if L then
 	L.risen_mage = "Mago resucitado"
 	L.sir_braunpyke = "Sir Braunpyke"
 
-	L.baron_braunpyke_warmup_trigger = "Ya han cumplido su propósito. Barón, demuestra tu valía."
+	--L.baron_braunpyke_warmup_trigger = "They've served their purpose. Baron, demonstrate your worth."
 	L.custom_on_autotalk_desc = "|cFFFF0000Requiere Sacerdote o Paladín.|r Selecciona automáticamente la opción de diálogo del NPC que te otorga el aura 'Bendición de la Llama Sagrada'."
 end
 
 L = BigWigs:NewBossLocale("Baron Braunpyke", "esES")
 if L then
-	L.charges = "%d cargas"
+	--L.charges = "%d charges"
 end
 
 -- Scenarios
@@ -219,7 +198,6 @@ end
 L = BigWigs:NewBossLocale("The Dawnbreaker Trash", "esES")
 if L then
 	L.arathi_lamplighter = "Prendelámparas arathi"
-	L.nightfall_curseblade = "Hoja maldita del Ocaso"
 	L.nightfall_shadowmage = "Mago oscuro del Ocaso"
 	L.nightfall_ritualist = "Ritualista del ocaso"
 	L.nightfall_commander = "Comandante del Ocaso"
@@ -249,7 +227,7 @@ if L then
 	L.coalescing_void_diffuser = "Difusor del Vacío aglomerado"
 	L.inflicted_civilian = "Civil afligido"
 	L.void_ascendant = "Ascendiente del Vacío"
-	L.consuming_voidstone = "Piedra del Vacío acuciante"
+	--L.consuming_voidstone = "Consuming Voidstone"
 end
 
 -- The Stonevault
@@ -270,6 +248,6 @@ if L then
 	L.cursedforge_stoneshaper = "Labrapiedras forjamaldita"
 	L.rock_smasher = "Machacador de roca"
 
-	L.edna_warmup_trigger = "¿Qué es eso? ¿El gólem está fusionado con otra cosa?"
+	--L.edna_warmup_trigger = "What's this? Is that golem fused with something else?"
 	L.custom_on_autotalk_desc = "|cFFFF0000Requiere Guerrero, Enano, o 25 de habilidad en Herrería de Khaz Algar.|r Selecciona automáticamente la opción de diálogo del NPC que otorga a tu grupo el aura 'Energía de hierro imbuido'."
 end

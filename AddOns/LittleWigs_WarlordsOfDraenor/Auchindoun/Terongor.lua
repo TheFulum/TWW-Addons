@@ -14,9 +14,10 @@ mod:SetRespawnTime(33)
 
 local L = mod:GetLocale()
 if L then
-	L.affliction = "Affliction"
-	L.demonology = "Demonology"
-	L.destruction = "Destruction"
+	local _
+	_, L.affliction = GetSpecializationInfoByID(265)
+	_, L.demonology = GetSpecializationInfoByID(266)
+	_, L.destruction = GetSpecializationInfoByID(267)
 end
 
 --------------------------------------------------------------------------------

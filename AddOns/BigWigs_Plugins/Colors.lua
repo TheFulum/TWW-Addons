@@ -201,7 +201,7 @@ local colorOptions = {
 		reset = {
 			type = "execute",
 			name = L.reset,
-			desc = L.resetColorsDesc,
+			desc = L.resetDesc,
 			func = reset,
 			order = 3,
 			width = "full",
@@ -248,7 +248,7 @@ plugin.pluginOptions.args.reset.width = nil --"half"
 plugin.pluginOptions.args.resetAll = {
 	type = "execute",
 	name = L.resetAll,
-	desc = L.resetAllColorsDesc,
+	desc = L.resetAllDesc,
 	func = resetAll,
 	order = 17,
 }

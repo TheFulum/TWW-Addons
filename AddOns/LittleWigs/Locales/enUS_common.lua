@@ -138,7 +138,6 @@ L.marker_npc_desc = "Mark %s with %s, requires promoted or leader." -- Mark NPC_
 L.marker_npc_aura_desc = "Mark NPCs affected by '%s' with %s, requires promoted or leader." -- Mark NPCs affected by 'SPELL_NAME' with SKULL_ICON
 L.disabled = "Disabled"
 L.none = "None"
-L.markers = "Markers" -- Plural of marker
 
 -- Ability where two players have to move close to each other
 L.link = "Link"
@@ -194,7 +193,6 @@ L.arcane = "Arcane"
 L.autotalk = "Automatic NPC interaction"
 L.autotalk_boss_desc = "Automatically select the NPC dialog options that cause the boss encounter to begin."
 L.autotalk_generic_desc = "Automatically select the NPC dialog options that cause you to progress to the next stage of the dungeon."
-L.autotalk_notice = "Automatically interacting with NPC %s."
 
 -- Common ability name replacements
 L.absorb = "Absorb" -- Used for shield-like abilities that absorb damage or healing

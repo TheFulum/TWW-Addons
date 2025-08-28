@@ -1,24 +1,7 @@
--- Archival Assault
-
-local L = BigWigs:NewBossLocale("Captain Nil'hitan", "zhTW")
-if L then
-	L.captain_nilhitan = "尼希坦隊長"
-end
-
-L = BigWigs:NewBossLocale("Portalmaster Halsan", "zhTW")
-if L then
-	L.portalmaster_halsan = "傳送門大師哈桑"
-end
-
-L = BigWigs:NewBossLocale("Voidrider Challnax", "zhTW")
-if L then
-	L.voidripper = "虚無斷肢者"
-	L.voidrider_challnax= "虛無騎士查納克斯"
-end
-
 -- Demolition Dome
 
-L = BigWigs:NewBossLocale("The Underpin", "zhTW")
+local L = BigWigs:NewBossLocale("The Underpin", "zhTW")
+if not L then return end
 if L then
 	L.the_underpin = "幽坑霸主（8 層）"
 	L.crony = "親信"
@@ -49,11 +32,6 @@ end
 
 -- Excavation Site 9
 
-L = BigWigs:NewBossLocale("Beste Glatisant", "zhTW")
-if L then
-	L.beste_glatisant = "吠獸"
-end
-
 L = BigWigs:NewBossLocale("Craggle Fritzbrains", "zhTW")
 if L then
 	L.craggle_fritzbrains = "奎格‧弗里茲布連"
@@ -83,11 +61,6 @@ if L then
 end
 
 -- Kriegval's Rest
-
-L = BigWigs:NewBossLocale("Faceless One Kriegval's Rest", "zhTW")
-if L then
-	L.faceless_one = "無面者"
-end
 
 L = BigWigs:NewBossLocale("Tomb-Raider Drywhisker", "zhTW")
 if L then
@@ -238,13 +211,6 @@ if L then
 	L.waxface = "蠟面"
 end
 
--- Voidrazor Sanctuary
-
-L = BigWigs:NewBossLocale("Nexus-Princess Ky'veza (Tier 11)", "zhTW")
-if L then
-	L.nexus_princess_kyveza = "奥核公主奇維扎"
-end
-
 -- Zekvir's Lair
 
 L = BigWigs:NewBossLocale("Zekvir", "zhTW")
@@ -261,22 +227,9 @@ end
 
 -- Trash
 
-L = BigWigs:NewBossLocale("Ethereal Trash", "zhTW")
-if L then
-	L.ethereal_trash = "以太族部隊"
-
-	L.shadeye_observer = "可疑的觀察者"
-	L.shadowguard_phasecutter = "影衛相位切割者"
-	L.shadowguard_arcanotech = "影衛秘法科技"
-	L.shadowguard_soulbreaker = "影衛破魂者"
-	L.shadowguard_steelsoul = "影衛鐵魂"
-	L.siphoned_drake = "虹吸飛龍"
-	L.steelsoul_arcanoward = "鐵魂秘法守衛"
-end
-
 L = BigWigs:NewBossLocale("Fungarian Delve Trash", "zhTW")
 if L then
-	L.fungarian_trash = "蘑菇人部隊"
+	L.fungarian_trash = "蘑菇人小怪"
 
 	L.sporbit = "小孢子"
 	L.fungal_speartender = "真菌長矛看管者"
@@ -290,7 +243,7 @@ end
 
 L = BigWigs:NewBossLocale("Goblin Delve Trash", "zhTW")
 if L then
-	L.goblin_trash = "哥布林部隊"
+	L.goblin_trash = "哥布林小怪"
 
 	L.bopper_bot = "錘錘機器人"
 	L.aerial_support_bot = "空中支援機器人"
@@ -300,12 +253,11 @@ if L then
 	L.punchy_thug = "猛揍的暴徒"
 	L.flinging_flicker = "投射物施法者"
 	L.bomb_bot = "炸彈機器人"
-	L.rad_rat = "超酷的老鼠"
 end
 
 L = BigWigs:NewBossLocale("Kobold Delve Trash", "zhTW")
 if L then
-	L.kobold_trash = "狗頭人部隊"
+	L.kobold_trash = "狗頭人小怪"
 
 	L.kobold_taskfinder = "狗頭人號令者"
 	L.spitfire_charger = "噴火戰騎"
@@ -314,7 +266,7 @@ end
 
 L = BigWigs:NewBossLocale("Kobyss Delve Trash", "zhTW")
 if L then
-	L.kobyss_trash = "寇拜斯部隊"
+	L.kobyss_trash = "寇拜斯小怪"
 
 	L.kobyss_necromancer = "寇拜斯死靈法師"
 	L.kobyss_spearfisher = "寇拜斯叉漁兵"
@@ -325,27 +277,9 @@ if L then
 	L.kobyss_trickster = "寇拜斯欺詐者"
 end
 
-L = BigWigs:NewBossLocale("Ky'veza Rares", "zhTW")
-if L then
-	L.rares = "奇維扎精英（稀有）"
-
-	L.treasure_wraith = "寶藏怨靈"
-	L.invasive_phasecrawler = "入侵的相位爬行者"
-	L.drude = "德魯德"
-	L.great_devourer = "大型吞噬者"
-	L.pactsworn_fraycaller = "群誓戰罔呼喚者"
-	L.pactsworn_dustblade = "群誓塵刃"
-	L.pactsworn_sandreaver = "群誓沙奪者"
-	L.pactsworn_arcanist = "群誓秘法師"
-	L.pactsworn_wildcaller = "群誓喚風者"
-	L.nexus_princess_kyveza = "奥核公主奇維扎（隨機出現）"
-	L.zekvir = "澤克維爾"
-	L.the_underpin = "幽坑霸主"
-end
-
 L = BigWigs:NewBossLocale("Nerubian Delve Trash", "zhTW")
 if L then
-	L.nerubian_trash = "奈幽部隊"
+	L.nerubian_trash = "奈幽小怪"
 
 	L.nerubian_lord = "奈幽領主"
 	L.nerubian_darkcaster = "奈幽黑暗法師"
@@ -357,7 +291,7 @@ end
 
 L = BigWigs:NewBossLocale("Nightfall Delve Trash", "zhTW")
 if L then
-	L.nightfall_trash = "黑夜教團部隊"
+	L.nightfall_trash = "黑夜教團小怪"
 
 	L.dark_bombardier = "黑暗投彈手"
 	L.nightfall_inquisitor = "夜暮審判官"
@@ -369,7 +303,7 @@ end
 
 L = BigWigs:NewBossLocale("Old God Delve Trash", "zhTW")
 if L then
-	L.old_god_trash = "古神部隊"
+	L.old_god_trash = "古神小怪"
 
 	L.dark_walker = "暗黑行者"
 	L.hideous_amalgamation = "駭人聚合體"
@@ -384,4 +318,31 @@ if L then
 	L.deepwalker_guardian = "深行守護者"
 	L.crazed_abomination = "發狂憎惡體"
 	L.web_marauder = "蛛網掠奪者"
+end
+
+L = BigWigs:NewBossLocale("Underpin Rares", "zhTW")
+if L then
+	L.rares = "幽坑稀有"
+
+	L.treasure_wraith = "寶藏怨靈"
+	L.treasure_crab = "寶藏蟹"
+	L.hovering_menace = "盤旋威脅者"
+	L.malfunctioning_pummeler = "故障的打擊者"
+	L.underpins_adoring_fan = "幽坑霸主的崇拜粉絲"
+	L.underpins_well_connected_friend = "幽坑霸主的好友"
+	L.underpins_explosive_ally = "幽坑霸主的爆炸盟友"
+	L.underpins_bodyguards_intern = "幽坑霸主的護衛見習生"
+	L.aggressively_lost_hobgoblin = "極度迷路的大哥布林"
+	L.the_underpin = "幽坑霸主（隨機出現）"
+
+	L.underpin_retreat_trigger = "總是有人喜歡亂闖我完全合法的私有地！"
+end
+
+L = BigWigs:NewBossLocale("Overcharged Trash", "zhTW")
+if L then
+	L.overcharged_trash = "超載小怪"
+
+	L.awakened_defensive_construct = "覺醒防禦傀儡"
+	L.awakened_defense_matrix = "覺醒防禦矩陣"
+	L.overcharged_bot = "超載機器人"
 end

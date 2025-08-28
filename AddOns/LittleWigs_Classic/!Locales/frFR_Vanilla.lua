@@ -35,60 +35,60 @@ end
 
 L = BigWigs:NewBossLocale("Kaigy Maryla", "frFR")
 if L then
-	L.kaigy_maryla = "Kaigy Maryla"
+	--L.kaigy_maryla = "Kaigy Maryla"
 end
 
 L = BigWigs:NewBossLocale("Sairuh Maryla", "frFR")
 if L then
-	L.sairuh_maryla = "Sairuh Maryla"
+	--L.sairuh_maryla = "Sairuh Maryla"
 end
 
 L = BigWigs:NewBossLocale("Barian Maryla", "frFR")
 if L then
-	L.barian_maryla = "Barian Maryla"
+	--L.barian_maryla = "Barian Maryla"
 end
 
 L = BigWigs:NewBossLocale("Creeping Malison", "frFR")
 if L then
-	L.creeping_malison = "Maldicio perfide"
+	--L.creeping_malison = "Creeping Malison"
 end
 
 L = BigWigs:NewBossLocale("Trizivast", "frFR")
 if L then
-	L.trizivast = "Trizivast"
+	--L.trizivast = "Trizivast"
 end
 
 L = BigWigs:NewBossLocale("Hans and Greta", "frFR")
 if L then
-	L.hans_and_greta = "Hans et Greta"
-	L.hans = "Hans"
-	L.greta = "Greta"
+	--L.hans_and_greta = "Hans and Greta"
+	--L.hans = "Hans"
+	--L.greta = "Greta"
 end
 
 L = BigWigs:NewBossLocale("Goblins", "frFR")
 if L then
-	L.goblins = "Gobelins"
-	L.geenkle = "Geenkle"
-	L.jank = "Tocard"
-	L.gold_rustboot = "Gould Rouillebotte"
+	--L.goblins = "Goblins"
+	--L.geenkle = "Geenkle"
+	--L.jank = "Jank"
+	--L.gold_rustboot = "Gold Rustboot"
 end
 
 L = BigWigs:NewBossLocale("Harbinger of Sin", "frFR")
 if L then
-	L.harbinger_of_sin = "Messager de péché"
+	--L.harbinger_of_sin = "Harbinger of Sin"
 end
 
 L = BigWigs:NewBossLocale("Kharon", "frFR")
 if L then
-	L.kharon = "Kharon"
+	--L.kharon = "Kharon"
 end
 
 L = BigWigs:NewBossLocale("Unk'omon", "frFR")
 if L then
-	L.unkomon = "Peuk'ommun"
+	--L.unkomon = "Unk'omon"
 end
 
 L = BigWigs:NewBossLocale("Dark Rider", "frFR")
 if L then
-	L.dark_rider = "Cavalier sombre"
+	--L.dark_rider = "Dark Rider"
 end

@@ -164,18 +164,13 @@ local nameplateSettingsToExport = {
 	-- Icons
 	"iconGrowDirection",
 	"iconGrowDirectionStart",
-	"iconGrowDirectionTarget",
-	"iconGrowDirectionStartTarget",
 	"iconSpacing",
-	"iconSpacingTarget",
-	"iconOffsetX",
-	"iconOffsetY",
-	"iconOffsetXTarget",
-	"iconOffsetYTarget",
 	"iconWidthTarget",
 	"iconHeightTarget",
 	"iconWidthOthers",
 	"iconHeightOthers",
+	"iconOffsetX",
+	"iconOffsetY",
 	"iconCooldownNumbers",
 	"iconFontName",
 	"iconFontSize",
@@ -678,7 +673,7 @@ local sharingOptions = {
 					return not isSomethingSelected
 				end,
 				confirm = function()
-					local profileName = BigWigsLoader.db:GetCurrentProfile()
+					local profileName = BigWigs.db:GetCurrentProfile()
 					return L.confirm_import:format(profileName)
 				end,
 			},

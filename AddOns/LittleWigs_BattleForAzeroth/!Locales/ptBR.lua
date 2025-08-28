@@ -1,6 +1,7 @@
 -- Atal'Dazar
 
 local L = BigWigs:NewBossLocale("Atal'Dazar Trash", "ptBR")
+if not L then return end
 if L then
 	L.skyscreamer = "Gritacéu Devorante"
 	L.tlonja = "T'lonja"
@@ -146,10 +147,6 @@ if L then
 	--L.madnesses = "Madnesses"
 	--L.potions = "Potions"
 	--L.buffs = "Buffs"
-	--L.slowed = "Slowed"
-	--L.sluggish_potion_effect = "Heal 2% every 5 sec"
-	--L.sickening_potion_effect = "5% damage reduction"
-	--L.spicy_potion_effect = "Breathe fire"
 
 	L.crawling_corruption = "Corrupção Rastejante"
 	L.enthralled_footman = "Soldado Raso Enfeitiçado"

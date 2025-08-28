@@ -2,11 +2,6 @@ local _, addonTbl = ...
 local L = addonTbl.API:NewLocale("BigWigs", "deDE")
 if not L then return end
 
-L.tempNew = "NEU: Du kannst jetzt |cFFFFFFFF/key|r eingeben, um die Mythisch+ Schlüsselsteine Deiner Gruppenmitglieder zu sehen."
-
--- API.lua
-L.showAddonBar = "Das Addon '%s' hat die Leiste '%s' erstellt."
-
 -- Core.lua
 L.berserk = "Berserker"
 L.berserk_desc = "Warnt, wenn der Boss zum Berserker wird."
@@ -90,7 +85,6 @@ L.Destruction = "Zerstörung (Kil'jaeden)"
 L.RunAway = "Lauf kleines Mädchen, lauf (Der große böse Wolf)"
 L.spell_on_you = "BigWigs: Zauber auf Dir"
 L.spell_under_you = "BigWigs: Zauber unter Dir"
-L.simple_no_voice = "Einfach (Keine Stimme)"
 
 -- Options.lua
 L.options = "Optionen"
@@ -255,8 +249,6 @@ L.normal = "Normal"
 L.heroic = "Heroisch"
 L.mythic = "Mythisch"
 L.timewalk = "Zeitwanderung"
-L.solotier8 = "Solo Stufe 8"
-L.solotier11 = "Solo Stufe 11"
 L.story = "Story"
 L.mplus = "Mythisch+ %d"
 L.SOD = "Saison der Entdeckungen"
@@ -269,126 +261,7 @@ L.N25 = "Normal 25"
 L.H10 = "Heroisch 10"
 L.H25 = "Heroisch 25"
 
------------------------------------------------------------------------
--- TOOLS
------------------------------------------------------------------------
 
-L.tools = "Werkzeuge"
-L.toolsDesc = "BigWigs bietet verschiedene Werkzeuge oder Features der \"Lebensqualität\" zur Beschleunigung und Vereinfachung von Bossbegegnungen. Menü durch Klicken des |cFF33FF99+|r Symbols erweitern, um alle zu sehen."
-
------------------------------------------------------------------------
--- AutoRole.lua
---
-
-L.autoRoleTitle = "Automatische Rollenwahl"
-L.autoRoleExplainer = "Jedes mal, wenn einer Gruppe beigetreten wird, oder die Talentspezialisierung in einer Gruppe geändert wird, passt BigWigs automatisch die Gruppenrolle (Tank, Heiler, Schaden) entsprechend an.\n\n"
-
------------------------------------------------------------------------
--- Keystones.lua
---
-
-L.keystoneTitle = "BigWigs Schlüsselsteine"
-L.keystoneHeaderParty = "Gruppe"
-L.keystoneRefreshParty = "Gruppe aktualisieren"
-L.keystoneHeaderGuild = "Gilde"
-L.keystoneRefreshGuild = "Gilde aktualisieren"
-L.keystoneLevelTooltip = "Schlüsselstein Stufe: |cFFFFFFFF%s|r"
-L.keystoneMapTooltip = "Dungeon: |cFFFFFFFF%s|r"
-L.keystoneRatingTooltip = "Mythisch+ Wertung: |cFFFFFFFF%d|r"
-L.keystoneHiddenTooltip = "Der Spieler hat entschieden diese Information zu verstecken."
-L.keystoneTabOnline = "Online"
-L.keystoneTabAlts = "Twinks"
-L.keystoneTabTeleports = "Teleports"
-L.keystoneHeaderMyCharacters = "Meine Charaktere"
-L.keystoneTeleportNotLearned = "Der Teleportzauber '|cFFFFFFFF%s|r' wurde noch |cFFFF4411nicht erlernt|r."
-L.keystoneTeleportOnCooldown = "Der Teleportzauber '|cFFFFFFFF%s|r' |cFFFF4411klingt ab|r für %d |4Stunde:Stunden; und %d |4Minute:Minuten;."
-L.keystoneTeleportReady = "Der Teleportzauber '|cFFFFFFFF%s|r' ist |cFF33FF99bereit|r, klicken zum Wirken."
-L.keystoneTeleportInCombat = "Teleportation hierhin im Kampf nicht möglich."
-L.keystoneTabHistory = "Verlauf"
-L.keystoneHeaderThisWeek = "Diese Woche"
-L.keystoneHeaderOlder = "Älter"
-L.keystoneScoreTooltip = "Dungeon Wertung: |cFFFFFFFF%d|r"
-L.keystoneScoreGainedTooltip = "Erhaltene Wertung: |cFFFFFFFF+%d|r"
-L.keystoneCompletedTooltip = "Im Zeitfenster abgeschlossen"
-L.keystoneFailedTooltip = "Nicht im Zeitfenster abgeschlossen"
-L.keystoneExplainer = "Eine Sammlung verschiedener Werkzeuge zur Verbesserung der Mythisch+ Erfahrung."
-L.keystoneAutoSlot = "Schlüsselstein automatisch einsetzen"
-L.keystoneAutoSlotDesc = "Setzt den Schlüsselstein automatisch beim Öffnen des Borns der Macht ein."
-L.keystoneAutoSlotMessage = "%s wurde automatisch in den Born der Macht eingesetzt."
-L.keystoneModuleName = "Mythisch+"
-L.keystoneStartBar = "%s +%d" -- Format is SHORT_DUNGEON_NAME +KEYSTONE_LEVEL e.g. "ROOK +12"
-L.keystoneStartMessage = "%s +%d beginnt jetzt!" -- Format is LONG_DUNGEON_NAME +KEYSTONE_LEVEL e.g. "The Rookery +12 begins now!"
-L.keystoneCountdownExplainer = "Beim Starten eines Mythisch+ Dungeons beginnt ein Countdown. Wiederzugebende Stimme sowie Länge des Countdowns wählen.\n\n"
-L.keystoneCountdownBeginsDesc = "Auswählen, ab welcher Restzeit des Mythisch+ Starttimers der Countdown startet."
-L.keystoneCountdownBeginsSound = "Einen Sound beim Start des Mythisch+ Countdowns wiedergeben"
-L.keystoneCountdownEndsSound = "Einen Sound am Ende des Mythisch+ Countdowns wiedergeben"
-L.keystoneViewerTitle = "Schlüsselstein Anzeige"
-L.keystoneHideGuildTitle = "Meinen Schlüsselstein vor meinen Gildenmitgliedern verstecken"
-L.keystoneHideGuildDesc = "|cffff4411Nicht empfohlen.|r Diese Funktion verhindert die Anzeige Deines Schlüsselsteins für die Gildenmitglieder. Jedes Mitglied der Gruppe kann diesen weiterhin sehen."
-L.keystoneHideGuildWarning = "Die Deaktivierung der Anzeige Deines Schlüsselsteins für Deine Gilde wird |cffff4411nicht empfohlen|r.\n\nBist Du sicher?"
-L.keystoneAutoShowEndOfRun = "Nach Beenden von Mythisch+ anzeigen"
-L.keystoneAutoShowEndOfRunDesc = "Die Schlüsselstein Anzeige automatisch nach Abschluss des Mythisch+ Dungeons anzeigen.\n\n|cFF33FF99Dies kann helfen, die neu erhaltenen Schlüsselsteine der Gruppe zu sehen.|r"
-L.keystoneViewerExplainer = "Die Schlüsselstein Anzeige kann durch Nutzung des Befehls |cFF33FF99/key|r oder die untenstehende Schaltfläche geöffnet werden.\n\n"
-L.keystoneViewerOpen = "Schlüsselstein Anzeige öffnen"
-L.keystoneClickToWhisper = "Zum Anflüstern klicken"
-L.keystoneClickToTeleportNow = "\nZum dorthin teleportieren klicken"
-L.keystoneClickToTeleportCooldown = "\nTeleport nicht möglich, Zauber klingt ab"
-L.keystoneClickToTeleportNotLearned = "\nTeleport nicht möglich, Zauber nicht erlernt"
-L.keystoneHistoryRuns = "Gesamt: %d"
-L.keystoneHistoryRunsThisWeekTooltip = "Gesamtzahl der Dungeons diese Woche: |cFFFFFFFF%d|r"
-L.keystoneHistoryRunsOlderTooltip = "Gesamtzahl der Dungeons vor dieser Woche: |cFFFFFFFF%d|r"
-L.keystoneHistoryScore = "Wertung: +%d"
-L.keystoneHistoryScoreThisWeekTooltip = "Gesamte diese Woche erhaltene Wertung: |cFFFFFFFF+%d|r"
-L.keystoneHistoryScoreOlderTooltip = "Gesamte vor dieser Woche erhaltene Wertung: |cFFFFFFFF+%d|r"
-
--- It doesn't really matter what you call it as long as it's recognizable and limited to ~6 characters
-L.keystoneShortName_TheRookery = "ROOK"
-L.keystoneShortName_DarkflameCleft = "DFC"
-L.keystoneShortName_PrioryOfTheSacredFlame = "PRIO"
-L.keystoneShortName_CinderbrewMeadery = "BREW"
-L.keystoneShortName_OperationFloodgate = "FLOOD"
-L.keystoneShortName_TheaterOfPain = "TOP"
-L.keystoneShortName_TheMotherlode = "ML"
-L.keystoneShortName_OperationMechagonWorkshop = "WORK"
-L.keystoneShortName_EcoDomeAldani = "ALDANI"
-L.keystoneShortName_HallsOfAtonement = "HOA"
-L.keystoneShortName_AraKaraCityOfEchoes = "ARAK"
-L.keystoneShortName_TazaveshSoleahsGambit = "GAMBIT"
-L.keystoneShortName_TazaveshStreetsOfWonder = "STREET"
-L.keystoneShortName_TheDawnbreaker = "DAWN"
-
--- These short names are for the bar that shows during the Mythic+ countdown
--- Use the real dungeon names but make them shorter to fit on the bar better
-L.keystoneShortName_TheRookery_Bar = "Brutstätte"
-L.keystoneShortName_DarkflameCleft_Bar = "Dunkelflammenspalt"
-L.keystoneShortName_PrioryOfTheSacredFlame_Bar = "Priorat"
-L.keystoneShortName_CinderbrewMeadery_Bar = "Brauerei"
-L.keystoneShortName_OperationFloodgate_Bar = "Schleuse"
-L.keystoneShortName_TheaterOfPain_Bar = "Theater"
-L.keystoneShortName_TheMotherlode_Bar = "Riesenflöz"
-L.keystoneShortName_OperationMechagonWorkshop_Bar = "Werkstatt"
-L.keystoneShortName_EcoDomeAldani_Bar = "Al'dani"
-L.keystoneShortName_HallsOfAtonement_Bar = "Hallen"
-L.keystoneShortName_AraKaraCityOfEchoes_Bar = "Ara-Kara"
-L.keystoneShortName_TazaveshSoleahsGambit_Bar = "Schachzug"
-L.keystoneShortName_TazaveshStreetsOfWonder_Bar = "Straßen"
-L.keystoneShortName_TheDawnbreaker_Bar = "Morgenbringer"
-
--- Instance Keys "Who has a key?"
-L.instanceKeysTitle = "Wer hat einen Schlüsselstein?"
-L.instanceKeysDesc = "Beim Betreten eines mythischen Dungeons werden die Spieler, welche einen Schlüsselstein für diesen Dungeon haben, als Liste angezeigt.\n\n"
-L.instanceKeysTest8 = "Dungeon +8 - |cFF00FF98Mönch|r"
-L.instanceKeysTest10 = "Dungeon +10 - |cFFFF7C0ADruide|r"
-L.instanceKeysDisplay = "%s +%d - |c%s%s|r" -- "DUNGEON_NAME +DUNGEON_LEVEL - PLAYER_NAME"
-
------------------------------------------------------------------------
--- LFGTimer.lua
---
-
-L.lfgTimerTitle = "Dungeonbrowser Timer"
-L.lfgTimerExplainer = "Immer wenn ein Dungeonbrowser Popup für eine Warteschlange erscheint, erstellt BigWigs einen Timer mit der verbleibenden Zeit zum Akzeptieren.\n\n"
-L.lfgUseMaster = "Dungeonbrowser Bereitschaftssound auf 'Master' Audiokanal wiedergeben"
-L.lfgUseMasterDesc = "Wenn diese Option aktiviert ist, wird der Bereitschaftssound des Dungeonbrowsers auf dem 'Master' Audiokanal wiedergegeben. Wenn diese Option deaktiviert ist, wird dieser stattdessen auf dem '%s' Audiokanal wiedergegeben."
 
 -----------------------------------------------------------------------
 -- PLUGINS
@@ -397,9 +270,6 @@ L.lfgUseMasterDesc = "Wenn diese Option aktiviert ist, wird der Bereitschaftssou
 L.general = "Allgemein"
 L.advanced = "Erweitert"
 L.comma = ", "
-L.reset = "Zurücksetzen"
-L.resetDesc = "Die obigen Einstellungen auf Standardwerte zurücksetzen."
-L.resetAll = "Alle zurücksetzen"
 
 L.positionX = "X-Position"
 L.positionY = "Y-Position"
@@ -407,13 +277,10 @@ L.positionExact = "Exakte Positionierung"
 L.positionDesc = "Zur exakten Positionierung vom Ankerpunkt einen Wert in der Box eingeben oder den Schieberegler bewegen."
 L.width = "Breite"
 L.height = "Höhe"
-L.size = "Größe"
 L.sizeDesc = "Normalerweise wird die Größe festgelegt, indem Du den Anker bewegst. Falls Du eine exakte Größe benötigst, bewege diesen Schieber oder trage den Wert in das Feld ein."
 L.fontSizeDesc = "Schriftgröße über den Schieberegler oder durch Eingabe eines Wertes in der Box (maximal 200) festlegen."
 L.disabled = "Deaktivieren"
 L.disableDesc = "Du bist dabei, das Feature '%s' zu deaktivieren, was |cffff4411nicht empfohlen|r wird.\n\nBist Du sicher, dass Du das tun willst?"
-L.keybinding = "Tastenbelegung"
-L.dragToResize = "Zum Anpassen ziehen"
 
 -- Anchor Points
 L.UP = "Hoch"
@@ -591,7 +458,6 @@ L.redirectPopupsColor = "Farbe der ausgegebenen Nachricht"
 L.blockDungeonPopups = "Popup Banner in Instanzen blockieren"
 L.blockDungeonPopupsDesc = "Die Popup Banner beim Betreten einer Instanz können sehr lange Texte enthalten. Die Aktivierung dieser Option blockiert diese komplett."
 L.itemLevel = "Gegenstandsstufe %d"
-L.newRespawnPoint = "Neuer Wiederbelebungspunkt"
 
 L.userNotifySfx = "Soundeffekte wurden von BossBlock deaktiviert, Aktivierung wird erzwungen."
 L.userNotifyMusic = "Musik wurde von BossBlock deaktiviert, Aktivierung wird erzwungen."
@@ -613,8 +479,10 @@ L.textShadow = "Textschatten"
 L.expiring_normal = "Normal"
 L.emphasized = "Hervorgehoben"
 
-L.resetColorsDesc = "Setzt die obenstehenden Farben auf ihre Ausgangswerte zurück."
-L.resetAllColorsDesc = "Falls Du veränderte Farbeinstellungen für Bosse benutzt, wird dieser Button ALLE zurücksetzen, sodass erneut die hier festgelegten Farben verwendet werden."
+L.reset = "Zurücksetzen"
+L.resetDesc = "Setzt die obenstehenden Farben auf ihre Ausgangswerte zurück."
+L.resetAll = "Alle zurücksetzen"
+L.resetAllDesc = "Falls Du veränderte Farbeinstellungen für Bosse benutzt, wird dieser Button ALLE zurücksetzen, sodass erneut die hier festgelegten Farben verwendet werden."
 
 L.red = "Rot"
 L.redDesc = "Allgemeine Bosswarnungen."
@@ -747,8 +615,6 @@ L.glowAt = "Leuchten beginnen (Sekunden)"
 L.glowAt_desc = "Legt fest, bei welcher verbleibenden Abklingzeit in Sekunden das Leuchten beginnt."
 L.headerIconSizeTarget = "Symbolgröße des aktuellen Ziels"
 L.headerIconSizeOthers = "Symbolgröße aller anderen Ziele"
-L.headerIconPositionTarget = "Symbolposition des aktuellen Ziels"
-L.headerIconPositionOthers = "Symbolposition der anderen Ziele"
 
 -- Glow types as part of LibCustomGlow
 L.pixelGlow = "Pixel-Leuchten"
@@ -822,8 +688,6 @@ L.sendPull = "Sendet einen Pull-Timer an die Gruppe."
 L.wrongPullFormat = "Ungültiger Pull-Timer. Ein korrektes Beispiel ist: /pull 5"
 L.countdownBegins = "Countdown starten"
 L.countdownBegins_desc = "Verbleibende Zeit des Pulltimers (in Sekunden) wählen, wenn der Countdown beginnt."
-L.pullExplainer = "\n|cFF33FF99/pull|r startet einen normalen Pulltimer.\n|cFF33FF99/pull 7|r startet einen 7-sekündigen Pulltimer, es kann jede Zahl verwendet werden.\nAlternativ kann unten auch eine Tastenbelegung festgelegt werden.\n\n"
-L.pullKeybindingDesc = "Tastenbelegung für den Start eines Pulltimers wählen."
 
 -----------------------------------------------------------------------
 -- RaidIcon.lua

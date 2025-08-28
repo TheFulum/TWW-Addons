@@ -2,11 +2,6 @@ local _, addonTbl = ...
 local L = addonTbl.API:NewLocale("BigWigs", "koKR")
 if not L then return end
 
-L.tempNew = "신규: |cFFFFFFFF/key|r를 입력하면 파티원의 쐐기돌을 볼 수 있습니다."
-
--- API.lua
-L.showAddonBar = "'%s' 애드온이 '%s' 바를 생성했습니다."
-
 -- Core.lua
 L.berserk = "광폭화"
 L.berserk_desc = "보스가 언제 광폭화하는지 바와 시간 경고를 표시합니다."
@@ -90,7 +85,6 @@ L.Destruction = "파괴 (킬제덴)"
 L.RunAway = "도망쳐라 꼬마야 달아나라 (커다란 나쁜 늑대)"
 L.spell_on_you = "BigWigs: 당신에게 주문"
 L.spell_under_you = "BigWigs: 발밑에 바닥"
-L.simple_no_voice = "심플 (음성 없음)"
 
 -- Options.lua
 L.options = "옵션"
@@ -255,8 +249,6 @@ L.normal = "일반"
 L.heroic = "영웅"
 L.mythic = "신화"
 L.timewalk = "시간여행"
-L.solotier8 = "솔플 8단계"
-L.solotier11 = "솔플 11단계"
 L.story = "스토리"
 L.mplus = "신화+ %d"
 L.SOD = "디스커버리 시즌"
@@ -269,126 +261,7 @@ L.N25 = "일반 25"
 L.H10 = "영웅 10"
 L.H25 = "영웅 25"
 
------------------------------------------------------------------------
--- TOOLS
------------------------------------------------------------------------
 
-L.tools = "도구"
-L.toolsDesc = "BigWigs은 보스와의 전투를 더욱 빠르고 간편하게 만들어 주는 다양한 도구 또는 \"편의 기능\"을 제공합니다. |cFF33FF99+|r 아이콘을 클릭하여 메뉴를 확장하면 모든 기능을 확인할 수 있습니다."
-
------------------------------------------------------------------------
--- AutoRole.lua
---
-
-L.autoRoleTitle = "자동 역할"
-L.autoRoleExplainer = "그룹에 가입하거나 그룹에 있는 동안 특성 전문화를 변경할 때마다 BigWigs이 자동으로 그룹 역할(탱커, 힐러, 딜러)을 그에 맞게 조정합니다.\n\n"
-
------------------------------------------------------------------------
--- Keystones.lua
---
-
-L.keystoneTitle = "BigWigs 쐐기돌"
-L.keystoneHeaderParty = "파티"
-L.keystoneRefreshParty = "파티 새로 고침"
-L.keystoneHeaderGuild = "길드"
-L.keystoneRefreshGuild = "길드 새로 고침"
-L.keystoneLevelTooltip = "쐐기돌 레벨: |cFFFFFFFF%s|r"
-L.keystoneMapTooltip = "던전: |cFFFFFFFF%s|r"
-L.keystoneRatingTooltip = "신화+ 등급: |cFFFFFFFF%d|r"
-L.keystoneHiddenTooltip = "플레이어가 이 정보를 숨기도록 선택했습니다."
-L.keystoneTabOnline = "온라인"
-L.keystoneTabAlts = "부캐"
-L.keystoneTabTeleports = "순간이동"
-L.keystoneHeaderMyCharacters = "내 캐릭터"
-L.keystoneTeleportNotLearned = "'|cFFFFFFFF%s|r'순간이동 주문을 아직 |cFFFF4411배우지 않았습니다|r."
-L.keystoneTeleportOnCooldown = "'|cFFFFFFFF%s|r'순간이동 주문은 현재 %d 시간 %d 분 동안 |cFFFF4411재사용 대기 중입니다|r."
-L.keystoneTeleportReady = "'|cFFFFFFFF%s|r'순간이동 주문은 |cFF33FF99사용할 수 있습니다|r. 클릭하여 시전하세요."
-L.keystoneTeleportInCombat = "전투 중에는 순간이동할 수 없습니다."
-L.keystoneTabHistory = "기록"
-L.keystoneHeaderThisWeek = "이번 주"
-L.keystoneHeaderOlder = "이전 기록"
-L.keystoneScoreTooltip = "던전 점수: |cFFFFFFFF%d|r"
-L.keystoneScoreGainedTooltip = "획득 점수: |cFFFFFFFF+%d|r"
-L.keystoneCompletedTooltip = "제한 시간 내에 완료"
-L.keystoneFailedTooltip = "제한 시간 내에 완료하지 못함"
-L.keystoneExplainer = "신화+ 경험을 향상시키는 다양한 도구 모음입니다."
-L.keystoneAutoSlot = "쐐기돌 자동 삽입"
-L.keystoneAutoSlotDesc = "마력의 샘을 열 때 자동으로 쐐기돌을 넣습니다."
-L.keystoneAutoSlotMessage = "%s 쐐기돌을 자동으로 넣었습니다."
-L.keystoneModuleName = "신화+"
-L.keystoneStartBar = "%s +%d" -- Format is SHORT_DUNGEON_NAME +KEYSTONE_LEVEL e.g. "ROOK +12"
-L.keystoneStartMessage = "%s +%d 지금 시작합니다!" -- Format is LONG_DUNGEON_NAME +KEYSTONE_LEVEL e.g. "The Rookery +12 begins now!"
-L.keystoneCountdownExplainer = "신화+ 던전을 시작하면 카운트다운이 재생됩니다. 듣고 싶은 음성과 카운트다운을 시작 시간을 선택하세요.\n\n"
-L.keystoneCountdownBeginsDesc = "신화+ 시작 타이머에서 카운트다운 재생이 시작될 남은 시간을 선택하세요."
-L.keystoneCountdownBeginsSound = "신화+ 카운트다운 시작 시 사운드 재생"
-L.keystoneCountdownEndsSound = "신화+ 카운트다운 종료 시 사운드 재생"
-L.keystoneViewerTitle = "쐐기돌 뷰어"
-L.keystoneHideGuildTitle = "길드원에게 내 쐐기돌 숨기기"
-L.keystoneHideGuildDesc = "|cffff4411권장하지 않습니다.|r 이 기능은 길드원들이 당신의 쐐기돌을 볼 수 없도록 합니다. 파티 내의 다른 멤버들은 여전히 이를 확인할 수 있습니다."
-L.keystoneHideGuildWarning = "길드원이 당신의 쐐기돌을 볼 수 없도록 하는 것은 |cffff4411권장하지 않습니다|r.\n\n정말로 이 기능을 사용하시겠습니까?"
-L.keystoneAutoShowEndOfRun = "신화+ 던전이 종료될 때 표시"
-L.keystoneAutoShowEndOfRunDesc = "신화+ 던전이 종료될 때 자동으로 쐐기돌 뷰어를 표시합니다.\n\n|cFF33FF99이 기능을 사용하면 파티가 획득한 새로운 쐐기돌을 확인할 수 있습니다.|r"
-L.keystoneViewerExplainer = "쐐기돌 뷰어를 열려면 |cFF33FF99/key|r 명령어를 사용하거나 아래 버튼을 클릭하세요.\n\n"
-L.keystoneViewerOpen = "쐐기돌 뷰어 열기"
-L.keystoneClickToWhisper = "귓속말 대화 상자를 열려면 클릭"
-L.keystoneClickToTeleportNow = "\n여기로 순간이동 하려면 클릭"
-L.keystoneClickToTeleportCooldown = "\n순간이동 불가, 재사용 대기 중"
-L.keystoneClickToTeleportNotLearned = "\n순간이동 불가, 주문 미습득"
-L.keystoneHistoryRuns = "총 %d개"
-L.keystoneHistoryRunsThisWeekTooltip = "이번 주 던전 총계: |cFFFFFFFF%d|r"
-L.keystoneHistoryRunsOlderTooltip = "이번 주 이전까지 던전 총계: |cFFFFFFFF%d|r"
-L.keystoneHistoryScore = "점수 +%d"
-L.keystoneHistoryScoreThisWeekTooltip = "이번 주 획득 총 점수: |cFFFFFFFF+%d|r"
-L.keystoneHistoryScoreOlderTooltip = "이번 주 이전에 획득한 총 점수: |cFFFFFFFF+%d|r"
-
--- It doesn't really matter what you call it as long as it's recognizable and limited to ~6 characters
-L.keystoneShortName_TheRookery = "부화장"
-L.keystoneShortName_DarkflameCleft = "어불동"
-L.keystoneShortName_PrioryOfTheSacredFlame = "수도원"
-L.keystoneShortName_CinderbrewMeadery = "양조장"
-L.keystoneShortName_OperationFloodgate = "수문"
-L.keystoneShortName_TheaterOfPain = "고투"
-L.keystoneShortName_TheMotherlode = "왕노"
-L.keystoneShortName_OperationMechagonWorkshop = "작업장"
-L.keystoneShortName_EcoDomeAldani = "알다니"
-L.keystoneShortName_HallsOfAtonement = "속죄"
-L.keystoneShortName_AraKaraCityOfEchoes = "아라카라"
-L.keystoneShortName_TazaveshSoleahsGambit = "소레아"
-L.keystoneShortName_TazaveshStreetsOfWonder = "거리"
-L.keystoneShortName_TheDawnbreaker = "새인호"
-
--- These short names are for the bar that shows during the Mythic+ countdown
--- Use the real dungeon names but make them shorter to fit on the bar better
-L.keystoneShortName_TheRookery_Bar = "부화장"
-L.keystoneShortName_DarkflameCleft_Bar = "어둠불꽃 동굴"
-L.keystoneShortName_PrioryOfTheSacredFlame_Bar = "수도원"
-L.keystoneShortName_CinderbrewMeadery_Bar = "양조장"
-L.keystoneShortName_OperationFloodgate_Bar = "수문"
-L.keystoneShortName_TheaterOfPain_Bar = "고투"
-L.keystoneShortName_TheMotherlode_Bar = "왕노"
-L.keystoneShortName_OperationMechagonWorkshop_Bar = "작업장"
-L.keystoneShortName_EcoDomeAldani_Bar = "알다니"
-L.keystoneShortName_HallsOfAtonement_Bar = "속죄"
-L.keystoneShortName_AraKaraCityOfEchoes_Bar = "아라카라"
-L.keystoneShortName_TazaveshSoleahsGambit_Bar = "소레아"
-L.keystoneShortName_TazaveshStreetsOfWonder_Bar = "거리"
-L.keystoneShortName_TheDawnbreaker_Bar = "새인호"
-
--- Instance Keys "Who has a key?"
---L.instanceKeysTitle = "Who has a key?"
---L.instanceKeysDesc = "When you enter a Mythic dungeon, the players that have a keystone for that dungeon will be displayed as a list.\n\n"
---L.instanceKeysTest8 = "Dungeon +8 - |cFF00FF98Monk|r"
---L.instanceKeysTest10 = "Dungeon +10 - |cFFFF7C0ADruid|r"
---L.instanceKeysDisplay = "%s +%d - |c%s%s|r" -- "DUNGEON_NAME +DUNGEON_LEVEL - PLAYER_NAME"
-
------------------------------------------------------------------------
--- LFGTimer.lua
---
-
-L.lfgTimerTitle = "파티 찾기 타이머"
-L.lfgTimerExplainer = "파티 찾기 대기열 창이 표시될 때마다 BigWigs은 대기열을 수락하기까지 남은 시간을 표시하는 타이머 바를 생성합니다.\n\n"
-L.lfgUseMaster = "'주 음량' 오디오 채널에서 파티 찾기 준비 완료 사운드 재생"
-L.lfgUseMasterDesc = "이 옵션을 활성화하면 파티 찾기 준비 완료음이 '주 음량' 오디오 채널을 통해 재생됩니다. 이 옵션을 비활성화하면 '%s' 오디오 채널을 통해 재생됩니다."
 
 -----------------------------------------------------------------------
 -- PLUGINS
@@ -397,9 +270,6 @@ L.lfgUseMasterDesc = "이 옵션을 활성화하면 파티 찾기 준비 완료�
 L.general = "일반"
 L.advanced = "고급"
 L.comma = ", "
-L.reset = "초기화"
---L.resetDesc = "Reset the above settings to their default values."
-L.resetAll = "모두 초기화"
 
 L.positionX = "X 위치"
 L.positionY = "Y 위치"
@@ -407,13 +277,10 @@ L.positionExact = "정확한 위치"
 L.positionDesc = "고정기로부터 정확한 위치를 원한다면 상자에 입력하거나 슬라이더를 움직이세요."
 L.width = "너비"
 L.height = "높이"
-L.size = "크기"
 L.sizeDesc = "보통 고정기를 끌어서 크기를 조정합니다. 정확한 크기를 지정하고 싶다면 슬라이더를 사용하거나 직접 수치를 입력 상자안에 써넣으세요."
 L.fontSizeDesc = "글씨 크기를 슬라이더를 이용해 조정하거나 직접 수치를 입력 상자안에 써넣으세요 (최대 200)."
 L.disabled = "비활성"
 L.disableDesc = "'%s' 기능을 비활성화하려고 합니다. |cffff4411권장하지 않음|r.\n\n정말로 비활성화하시겠습니까?"
-L.keybinding = "키 설정"
-L.dragToResize = "드래그하여 크기 조정"
 
 -- Anchor Points
 L.UP = "위"
@@ -591,7 +458,6 @@ L.redirectPopupsColor = "표시되는 팝업 배너의 색상"
 L.blockDungeonPopups = "던전 팝업 배너 차단"
 L.blockDungeonPopupsDesc = "던전에 입장할 때 표시되는 팝업 배너는 때때로 매우 긴 텍스트를 포함할 수 있습니다. 이 기능을 활성화하면 이러한 팝업 배너가 완전히 차단됩니다."
 L.itemLevel = "아이템 레벨: %d"
-L.newRespawnPoint = "새로운 부활 지점"
 
 L.userNotifySfx = "보스 기능 차단으로 비활성화된 사운드 효과를 강제로 다시 활성화합니다."
 L.userNotifyMusic = "보스 기능 차단으로 비활성화된 배경음악를 강제로 다시 활성화합니다."
@@ -613,8 +479,10 @@ L.textShadow = "문자 그림자"
 L.expiring_normal = "일반"
 L.emphasized = "강조"
 
-L.resetColorsDesc = "위의 색상을 기본 색상으로 초기화합니다."
-L.resetAllColorsDesc = "보스 전투 설정에 사용자 설정 색상을 적용했다면, 이 버튼은 여기에 정의된 색상이 대신 사용되도록 모두 초기화합니다."
+L.reset = "초기화"
+L.resetDesc = "위의 색상을 기본 색상으로 초기화합니다."
+L.resetAll = "모두 초기화"
+L.resetAllDesc = "보스 전투 설정에 사용자 설정 색상을 적용했다면, 이 버튼은 여기에 정의된 색상이 대신 사용되도록 모두 초기화합니다."
 
 L.red = "빨강"
 L.redDesc = "일반적인 경보"
@@ -747,8 +615,6 @@ L.glowAt = "반짝임 시작 (초)"
 L.glowAt_desc = "반짝임이 시작될 때 재사용 대기시간이 몇 초 남았는지 선택합니다."
 L.headerIconSizeTarget = "현재 대상의 아이콘 크기"
 L.headerIconSizeOthers = "다른 모든 대상의 아이콘 크기"
-L.headerIconPositionTarget = "현재 대상의 아이콘 위치"
-L.headerIconPositionOthers = "다른 모든 대상의 아이콘 위치"
 
 -- Glow types as part of LibCustomGlow
 L.pixelGlow = "픽셀 반짝임"
@@ -822,8 +688,6 @@ L.sendPull = "그룹에 풀 타이머를 전송합니다."
 L.wrongPullFormat = "잘못된 풀 타이머 형식입니다. 올바른 예: /pull 5"
 L.countdownBegins = "초읽기 시작"
 L.countdownBegins_desc = "전투 시작 초읽기가 몇 초 전부터 시작될 지 선택하세요."
-L.pullExplainer = "\n|cFF33FF99/pull|r은 일반적인 풀 타이머를 시작합니다.\n|cFF33FF99/pull 7|r은 7초 풀 타이머를 시작합니다. 원하는 숫자를 사용할 수 있습니다.\n또는 아래에 키 설정을 할 수도 있습니다.\n\n"
-L.pullKeybindingDesc = "풀 타이머를 시작하기 위한 키 설정을 선택하세요."
 
 -----------------------------------------------------------------------
 -- RaidIcon.lua

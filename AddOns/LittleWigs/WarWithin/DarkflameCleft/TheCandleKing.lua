@@ -90,10 +90,7 @@ function mod:ParanoidMind(args)
 	else -- Normal, Heroic
 		self:CDBar(args.spellId, 20.6)
 	end
-	local _, interruptReady = self:Interrupter()
-	if interruptReady then
-		self:PlaySound(args.spellId, "warning")
-	end
+	self:PlaySound(args.spellId, "warning")
 end
 
 do

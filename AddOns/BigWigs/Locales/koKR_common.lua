@@ -139,7 +139,6 @@ L.marker_npc_desc = "%s|1을;를; %s|1으로;로; 징표 설정합니다. (부�
 L.marker_npc_aura_desc = "'%s' 영향을 받은 NPC를 %s|1으로;로; 표시합니다. (부공대장 이상 권한 필요)" -- Mark NPCs affected by 'SPELL_NAME' with SKULL_ICON
 L.disabled = "비활성화"
 L.none = "없음"
-L.markers = "징표" -- Plural of marker
 
 -- Ability where two players have to move close to each other
 L.link = "연결"
@@ -195,7 +194,6 @@ L.arcane = "비전"
 L.autotalk = "NPC 자동 상호작용"
 L.autotalk_boss_desc = "보스 전투 시작 NPC 대화를 자동 선택합니다."
 L.autotalk_generic_desc = "던전 다음 단계 진행에 필요한 NPC 대화를 자동 선택합니다."
-L.autotalk_notice = "NPC %s와 자동으로 상호 작용합니다."
 
 -- Common ability name replacements
 L.absorb = "흡수" -- Used for shield-like abilities that absorb damage or healing

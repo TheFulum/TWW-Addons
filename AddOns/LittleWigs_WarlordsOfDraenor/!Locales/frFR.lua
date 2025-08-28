@@ -1,14 +1,7 @@
 -- Auchindoun
 
-local L = BigWigs:NewBossLocale("Teron'gor", "frFR")
+local L = BigWigs:NewBossLocale("Auchindoun Trash", "frFR")
 if not L then return end
-if L then
-	L.affliction = "Affliction"
-	L.demonology = "Démonologie"
-	L.destruction = "Destruction"
-end
-
-L = BigWigs:NewBossLocale("Auchindoun Trash", "frFR")
 if L then
 	L.abyssal = "Abyssal gangrelien"
 end
@@ -26,8 +19,8 @@ end
 
 L = BigWigs:NewBossLocale("Nitrogg Thundertower", "frFR")
 if L then
-	L.dropped = "%s lâché !"
-	L.add_trigger1 = "Montrez-leur qui vous êtes, les gars !"
+	--L.dropped = "%s dropped!"
+	L.add_trigger1 = "Montrez-leur qui vous êtes, les gars !"
 	L.add_trigger2 = "Donnez-leur tout ce que vous avez."
 
 	L.waves[1] = "1x Boumeur grom’kar, 1x Mitrailleur grom’kar"
@@ -58,12 +51,12 @@ end
 
 L = BigWigs:NewBossLocale("Grimrail Enforcers", "frFR")
 if L then
-	L.sphere_fail_message = "Bouclier est cassé- Ils se soignet tous :("
+	--L.sphere_fail_message = "Shield was broken - They're all healing :("
 end
 
 L = BigWigs:NewBossLocale("Oshir", "frFR")
 if L then
-	L.freed = "Libéré après %.1f sec !"
+	--L.freed = "Freed after %.1f sec!"
 	L.wolves = "Loups"
 	L.rylak = "Rylak"
 end
@@ -86,12 +79,12 @@ end
 
 L = BigWigs:NewBossLocale("Bonemaw", "frFR")
 if L then
-	L.summon_worms = "Invocation ver putride"
-	L.summon_worms_desc = "Ossegueule invoque deux vers putrides."
+	--L.summon_worms = "Summon Carrion Worms"
+	--L.summon_worms_desc = "Bonemaw summons two Carrion Worms."
 	--L.summon_worms_trigger = "piercing screech attracts nearby Carrion Worms!"
 
 	L.submerge = "Submerger"
-	L.submerge_desc = "Ossegueule submerge et se repositionne."
+	--L.submerge_desc = "Bonemaw submerges and repositions."
 	--L.submerge_trigger = "hisses, slinking back into the shadowy depths!"
 end
 
@@ -121,7 +114,7 @@ end
 
 L = BigWigs:NewBossLocale("Witherbark", "frFR")
 if L then
-	L.energyStatus = "Un globule a atteint Fanécorce : %d%% énergie"
+	--L.energyStatus = "A Globule reached Witherbark: %d%% energy"
 end
 
 L = BigWigs:NewBossLocale("The Everbloom Trash", "frFR")
@@ -138,7 +131,7 @@ if L then
 	L.putrid_pyromancer = "Pyromancien putride"
 	L.addled_arcanomancer = "Arcanomancien perturbé"
 
-	L.gate_open_desc = "Affiche une barre indiquant lorsque le Sous-mage Kesalon ouvrira la porter vers Yalnu."
+	--L.gate_open_desc = "Show a bar indicating when Undermage Kesalon will open the gate to Yalnu."
 	--L.yalnu_warmup_trigger = "The portal is lost! We must stop this beast before it can escape!"
 end
 

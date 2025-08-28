@@ -12,11 +12,11 @@ end
 
 L = BigWigs:NewBossLocale("Gal'darah", "esES")
 if L then
-	L.forms = "Formas"
-	L.forms_desc = "Alertar antes de que Gal'darah cambie de formas."
+	--L.forms = "Forms"
+	--L.forms_desc = "Warn before Gal'darah changes forms."
 
-	L.form_rhino = "Forma de rino"
-	L.form_troll = "Forma de troll"
+	--L.form_rhino = "Rhino Form"
+	--L.form_troll = "Troll Form"
 end
 
 -- Halls of Lightning
@@ -31,35 +31,35 @@ end
 
 L = BigWigs:NewBossLocale("Tribunal of Ages", "esES")
 if L then
-	L.engage_trigger = "¡Atentos!" -- Now keep an eye out! I'll have this licked in two shakes of a--
-	L.defeat_trigger = "los viejos dedos mágicos" --  Ha! The old magic fingers finally won through! Now let's get down to--
-	L.fail_trigger = "¡Aún no!... Aún no..."
+	--L.engage_trigger = "Now keep an eye out" -- Now keep an eye out! I'll have this licked in two shakes of a--
+	--L.defeat_trigger = "The old magic fingers" --  Ha! The old magic fingers finally won through! Now let's get down to--
+	--L.fail_trigger = "Not yet... not ye--"
 
-	L.timers = "Temporizadores"
-	L.timers_desc = "Temporizadores para varios eventos que ocurren."
+	--L.timers = "Timers"
+	--L.timers_desc = "Timers for various events that take place."
 
-	L.victory = "Victoria"
+	--L.victory = "Victory"
 end
 
 -- The Culling of Stratholme
 
 L = BigWigs:NewBossLocale("The Culling of Stratholme Trash", "esES")
 if L then
-	L.custom_on_autotalk_desc = "Selecciona al instante la opción de conversación de Chromie y Arthas."
+	--L.custom_on_autotalk_desc = "Instantly select Chromie's and Arthas's gossip options."
 
-	L.gossip_available = "Conversación disponible"
-	L.gossip_timer_trigger = "Me alegro que lo consiguieras, Uther."
+	--L.gossip_available = "Gossip available"
+	--L.gossip_timer_trigger = "Glad you could make it, Uther."
 end
 
 L = BigWigs:NewBossLocale("Mal'Ganis", "esES")
 if L then
-	L.warmup_trigger = "Vamos a poner fin a esto ahora. Mal'Ganis. Solos tú y yo."
+	--L.warmup_trigger = "We're going to finish this right now, Mal'Ganis. Just you... and me."
 end
 
 L = BigWigs:NewBossLocale("Chrono-Lord Epoch", "esES")
 if L then
 	-- Prince Arthas Menethil, on this day, a powerful darkness has taken hold of your soul. The death you are destined to visit upon others will this day be your own.
-	L.warmup_trigger = "hoy"
+	--L.warmup_trigger = "on this day"
 end
 
 L = BigWigs:NewBossLocale("Infinite Corruptor", "esES")
@@ -79,24 +79,24 @@ end
 
 L = BigWigs:NewBossLocale("Xevozz", "esES")
 if L then
-	L.sphere_name = "Esfera etérea"
+	--L.sphere_name = "Ethereal Sphere"
 end
 
 L = BigWigs:NewBossLocale("Zuramat the Obliterator", "esES")
 if L then
-	L.short_name = "Zuramat"
+	--L.short_name = "Zuramat"
 end
 
 L = BigWigs:NewBossLocale("The Violet Hold Trash", "esES")
 if L then
-	L.portals_desc = "Información sobre los portales."
+	--L.portals_desc = "Information about portals."
 end
 
 -- Trial of the Champion
 
 L = BigWigs:NewBossLocale("Trial of the Champion Trash", "esES")
 if L then
-	L.custom_on_autotalk_desc = "Selecciona al instante la opción de conversar para comenzar los encuentros."
+	--L.custom_on_autotalk_desc = "Instantly select gossip option to start encounters."
 end
 
 -- Utgarde Pinnacle
